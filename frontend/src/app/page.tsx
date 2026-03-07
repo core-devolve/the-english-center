@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import HeroCarousel from "@/components/HeroCarousel";
 import MarqueeBanner from "@/components/MarqueeBanner";
 import TrustSection from "@/components/TrustSection";
+import WhyChooseEnglish from "@/components/WhyChooseEnglish";
 import CoursesSection from "@/components/CoursesSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import TeachersSection from "@/components/TeachersSection";
@@ -17,6 +18,7 @@ export default function Home() {
       <HeroCarousel />
       <MarqueeBanner />
       <TrustSection />
+      <WhyChooseEnglish />
       {/* <CoursesSection />
       <FeaturesSection />
       <TeachersSection />
