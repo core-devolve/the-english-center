@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef, useCallback } from "react";
+import pic from "../../public/pic.jpg" 
 
 const slides = [
   {
@@ -8,7 +9,7 @@ const slides = [
     line2: "Offers Are Live",
     desc: "Get the Biggest Discounts of the Year — Hurry! Don't miss out",
     cta: "Explore Now",
-    emoji: "🎓",
+    emoji: pic,
     bg: "linear-gradient(110deg,#8b0000 0%,#c0392b 40%,#e74c3c 70%,#922b21 100%)",
     showBadge: true,
   },
@@ -150,7 +151,7 @@ export default function HeroCarousel() {
                 <button className="c-btn">{s.cta} →</button>
               </div>
               <div className="c-visual">
-                <div className="c-avatar">{s.emoji}</div>
+                <div className="c-avatar"><img src={s.emoji} alt="" /></div>
               </div>
               {s.showBadge && <div className="vd-badge">VISHWAS<br/>DIWAS</div>}
             </div>

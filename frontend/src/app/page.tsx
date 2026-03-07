@@ -17,13 +17,13 @@ export default function Home() {
       <HeroCarousel />
       <MarqueeBanner />
       <TrustSection />
-      <CoursesSection />
+      {/* <CoursesSection />
       <FeaturesSection />
       <TeachersSection />
       <TestimonialsSection />
       <AppDownloadSection />
       <Footer />
-      <FloatingCallBtn />
+      <FloatingCallBtn /> */}
     </main>
   );
 }
