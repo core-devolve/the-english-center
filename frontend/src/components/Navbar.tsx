@@ -11,12 +11,13 @@ const centerLinks = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) setOpen(false);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
@@ -35,6 +36,7 @@ export default function Navbar() {
           text-decoration: none;
           transition: color 0.2s, background 0.2s;
           letter-spacing: 0.01em;
+          white-space: nowrap;
         }
         .nav-link::after {
           content: '';
@@ -48,13 +50,8 @@ export default function Navbar() {
           border-radius: 99px;
           transition: width 0.3s ease;
         }
-        .nav-link:hover {
-          color: #fff;
-          background: rgba(255,255,255,0.13);
-        }
-        .nav-link:hover::after {
-          width: 18px;
-        }
+        .nav-link:hover { color: #fff; background: rgba(255,255,255,0.13); }
+        .nav-link:hover::after { width: 18px; }
 
         .admission-btn {
           font-family: 'Poppins', sans-serif;
@@ -91,15 +88,53 @@ export default function Navbar() {
         .bar-open-2 { opacity: 0; transform: scaleX(0); }
         .bar-open-3 { transform: rotate(-45deg) translateY(-7px); }
 
+        .navbar-root {
+          position: fixed;
+          top: 16px;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 50;
+          width: calc(100% - 24px);
+          max-width: 1280px;
+          border: 1px solid rgba(255,255,255,0.22);
+          background: rgba(255,255,255,0.09);
+          backdrop-filter: blur(22px) saturate(160%);
+          -webkit-backdrop-filter: blur(22px) saturate(160%);
+          box-shadow: 0 8px 40px rgba(0,0,0,0.22), 0 1px 0 rgba(255,255,255,0.08) inset;
+          transition: border-radius 0.35s cubic-bezier(0.4,0,0.2,1);
+          overflow: hidden;
+        }
+        .navbar-root.closed   { border-radius: 9999px; }
+        .navbar-root.menu-open { border-radius: 24px; }
+
+        /* Mobile: simple flexbox so logo is left, hamburger is right */
+        .navbar-bar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          height: 64px;
+          padding: 0 20px;
+        }
+
+        /* Desktop: switch to 3-col grid so center links are truly centered */
+        @media (min-width: 1024px) {
+          .navbar-root { border-radius: 9999px !important; width: 92%; }
+          .navbar-bar {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+          }
+        }
+
         .mobile-menu {
           overflow: hidden;
+          max-height: 0;
+          opacity: 0;
           transition: max-height 0.38s cubic-bezier(0.4,0,0.2,1), opacity 0.3s;
         }
-        .mobile-menu.open  { max-height: 480px; opacity: 1; }
-        .mobile-menu.close { max-height: 0;   opacity: 0; }
+        .mobile-menu.open { max-height: 480px; opacity: 1; }
 
         .logo-circle {
-          width: 42px; height: 42px;
+          width: 38px; height: 38px;
           border-radius: 50%;
           background: rgba(255,255,255,0.18);
           border: 1px solid rgba(255,255,255,0.32);
@@ -109,82 +144,87 @@ export default function Navbar() {
           transition: background 0.25s, transform 0.25s;
           flex-shrink: 0;
         }
+        .logo-wrap {
+          display: flex; align-items: center; gap: 10px;
+          text-decoration: none; min-width: 0;
+        }
         .logo-wrap:hover .logo-circle {
           background: rgba(255,255,255,0.28);
           transform: scale(1.07);
         }
-        .logo-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo-text-block { display: none; line-height: 1; }
+        @media (min-width: 480px) { .logo-text-block { display: block; } }
+
+        .mobile-link {
+          font-family: 'Poppins', sans-serif;
+          font-size: 14px;
+          color: rgba(255,255,255,0.88);
+          padding: 10px 14px;
+          border-radius: 12px;
+          text-decoration: none;
+          display: block;
+          transition: background 0.2s, color 0.2s;
+        }
+        .mobile-link:hover { background: rgba(255,255,255,0.13); color: #fff; }
+
+        /* Visibility toggles */
+        .desktop-links    { display: none !important; }
+        .desktop-admission { display: none !important; }
+        .hamburger-btn    { display: flex !important; }
+
+        @media (min-width: 1024px) {
+          .desktop-links    { display: flex !important; }
+          .desktop-admission { display: inline-flex !important; }
+          .hamburger-btn    { display: none !important; }
+        }
       `}</style>
 
-      <nav
-        style={{
-          position: "fixed",
-          top: "16px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 50,
-          width: "92%",
-          maxWidth: "1280px",
-          borderRadius: "9999px",
-          border: "1px solid rgba(255,255,255,0.22)",
-          background: "rgba(255,255,255,0.09)",
-          backdropFilter: "blur(22px) saturate(160%)",
-          WebkitBackdropFilter: "blur(22px) saturate(160%)",
-          boxShadow: "0 8px 40px rgba(0,0,0,0.22), 0 1px 0 rgba(255,255,255,0.08) inset",
-          transition: "all 0.4s ease",
-        }}
-      >
-        {/* ── Main bar: 3-column grid so center is truly centered ── */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr auto 1fr",
-            alignItems: "center",
-            height: "68px",
-            padding: "0 28px",
-          }}
-        >
-          {/* LEFT — Logo */}
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <Link href="/" className="logo-wrap">
-              <div className="logo-circle">
-                <span style={{
-                  color: "#fff",
-                  fontFamily: "'Poppins', sans-serif",
-                  fontWeight: 900,
-                  fontSize: "10px",
-                  letterSpacing: "-0.3px",
-                  textAlign: "center",
-                  lineHeight: 1,
-                  padding: "0 3px",
-                }}>TEC</span>
-              </div>
-              <div className="hidden sm:block" style={{ lineHeight: 1 }}>
-                <p style={{
-                  fontFamily: "'Poppins', sans-serif",
-                  fontWeight: 700,
-                  fontSize: "14.5px",
-                  color: "#fff",
-                  margin: 0,
-                  letterSpacing: "-0.2px",
-                }}>The English Center</p>
-                <p style={{
-                  fontFamily: "'Poppins', sans-serif",
-                  fontWeight: 400,
-                  fontSize: "10px",
-                  color: "rgba(255,255,255,0.55)",
-                  margin: 0,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  marginTop: "2px",
-                }}>Language Institute</p>
-              </div>
-            </Link>
-          </div>
+      <nav className={`navbar-root ${open ? "menu-open" : "closed"}`}>
 
-          {/* CENTER — 4 nav links (desktop only) */}
+        {/* ── Main bar ── */}
+        <div className="navbar-bar">
+
+          {/* LEFT — Logo */}
+          <Link href="/" className="logo-wrap">
+            <div className="logo-circle">
+              <span style={{
+                color: "#fff",
+                fontFamily: "'Poppins', sans-serif",
+                fontWeight: 900,
+                fontSize: "9px",
+                letterSpacing: "-0.3px",
+                textAlign: "center",
+                lineHeight: 1,
+                padding: "0 3px",
+              }}>TEC</span>
+            </div>
+            <div className="logo-text-block">
+              <p style={{
+                fontFamily: "'Poppins', sans-serif",
+                fontWeight: 700,
+                fontSize: "14px",
+                color: "#fff",
+                margin: 0,
+                letterSpacing: "-0.2px",
+                whiteSpace: "nowrap",
+              }}>The English Center</p>
+              <p style={{
+                fontFamily: "'Poppins', sans-serif",
+                fontWeight: 400,
+                fontSize: "9.5px",
+                color: "rgba(255,255,255,0.55)",
+                margin: 0,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                marginTop: "2px",
+                whiteSpace: "nowrap",
+              }}>Language Institute</p>
+            </div>
+          </Link>
+
+          {/* CENTER — Nav links (desktop only, sits in grid middle cell) */}
           <div
-            className="hidden lg:flex"
+            className="desktop-links"
             style={{ alignItems: "center", gap: "2px" }}
           >
             {centerLinks.map(({ name, href }) => (
@@ -192,19 +232,16 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* RIGHT — Admission btn + hamburger */}
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: "12px" }}>
-            {/* Admission — desktop */}
-            <Link href="/Contact" className="admission-btn hidden lg:inline-flex">
+          {/* RIGHT — Admission + hamburger */}
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: "10px" }}>
+            <Link href="/Contact" className="admission-btn desktop-admission">
               Admission
             </Link>
 
-            {/* Hamburger — mobile */}
             <button
               onClick={() => setOpen(!open)}
-              className="lg:hidden"
+              className="hamburger-btn"
               style={{
-                display: "flex",
                 flexDirection: "column",
                 gap: "5px",
                 padding: "8px",
@@ -213,6 +250,7 @@ export default function Navbar() {
                 border: "none",
                 cursor: "pointer",
                 transition: "background 0.2s",
+                flexShrink: 0,
               }}
               onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.13)"}
               onMouseLeave={e => e.currentTarget.style.background = "transparent"}
@@ -225,10 +263,10 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* ── Mobile menu ── */}
-        <div className={`mobile-menu lg:hidden ${open ? "open" : "close"}`}>
+        {/* ── Mobile dropdown ── */}
+        <div className={`mobile-menu ${open ? "open" : ""}`} aria-hidden={!open}>
           <div style={{
-            padding: "8px 20px 20px",
+            padding: "8px 16px 18px",
             display: "flex",
             flexDirection: "column",
             gap: "2px",
@@ -239,25 +277,15 @@ export default function Navbar() {
                 key={name}
                 href={href}
                 onClick={() => setOpen(false)}
-                style={{
-                  fontFamily: "'Poppins', sans-serif",
-                  fontSize: "14px",
-                  fontWeight: name === "Admission" ? 600 : 500,
-                  color: "rgba(255,255,255,0.88)",
-                  padding: "10px 14px",
-                  borderRadius: "12px",
-                  textDecoration: "none",
-                  transition: "background 0.2s, color 0.2s",
-                  display: "block",
-                }}
-                onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,0.13)"; e.currentTarget.style.color = "#fff"; }}
-                onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "rgba(255,255,255,0.88)"; }}
+                className="mobile-link"
+                style={{ fontWeight: name === "Admission" ? 600 : 500 }}
               >
                 {name}
               </Link>
             ))}
           </div>
         </div>
+
       </nav>
     </>
   );
