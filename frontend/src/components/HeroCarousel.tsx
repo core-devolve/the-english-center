@@ -1,6 +1,11 @@
 "use client";
 import { useState, useEffect, useRef, useCallback } from "react";
-import pic from "../../public/pic.jpg" 
+import Image from "next/image";
+import pic from "../../public/pic.jpg";
+
+type SlideVisual =
+  | { type: "image"; src: typeof pic }
+  | { type: "emoji"; value: string };
 
 const slides = [
   {
@@ -9,7 +14,7 @@ const slides = [
     line2: "Offers Are Live",
     desc: "Get the Biggest Discounts of the Year — Hurry! Don't miss out",
     cta: "Explore Now",
-    emoji: pic,
+    visual: { type: "image", src: pic } as SlideVisual,
     bg: "linear-gradient(110deg,#8b0000 0%,#c0392b 40%,#e74c3c 70%,#922b21 100%)",
     showBadge: true,
   },
@@ -19,7 +24,7 @@ const slides = [
     line2: "Arjuna Batch",
     desc: "India's most trusted JEE preparation with top faculties from IITs",
     cta: "Enroll Now",
-    emoji: "⚗️",
+    visual: { type: "emoji", value: "⚗️" } as SlideVisual,
     bg: "linear-gradient(110deg,#1a1a6e 0%,#2563eb 45%,#3b82f6 70%,#1d4ed8 100%)",
     showBadge: false,
   },
@@ -29,7 +34,7 @@ const slides = [
     line2: "Lakshya Batch",
     desc: "Comprehensive NEET preparation with proven strategies and expert mentors",
     cta: "Start Learning",
-    emoji: "🧬",
+    visual: { type: "emoji", value: "🧬" } as SlideVisual,
     bg: "linear-gradient(110deg,#065f46 0%,#059669 45%,#10b981 70%,#047857 100%)",
     showBadge: false,
   },
@@ -37,7 +42,7 @@ const slides = [
 
 export default function HeroCarousel() {
   const [cur, setCur] = useState(0);
-  const timer = useRef<ReturnType<typeof setInterval>|null>(null);
+  const timer = useRef<ReturnType<typeof setInterval> | null>(null);
   const touchX = useRef(0);
 
   const goTo = useCallback((n: number) => {
@@ -46,12 +51,12 @@ export default function HeroCarousel() {
 
   const startAuto = useCallback(() => {
     if (timer.current) clearInterval(timer.current);
-    timer.current = setInterval(() => setCur(c => (c+1) % slides.length), 4500);
+    timer.current = setInterval(() => setCur(c => (c + 1) % slides.length), 4500);
   }, []);
 
-  const nav = (dir: number) => { goTo(cur+dir); startAuto(); };
+  const nav = (dir: number) => { goTo(cur + dir); startAuto(); };
 
-  useEffect(() => { startAuto(); return () => { if(timer.current) clearInterval(timer.current); }; }, [startAuto]);
+  useEffect(() => { startAuto(); return () => { if (timer.current) clearInterval(timer.current); }; }, [startAuto]);
 
   return (
     <>
@@ -135,12 +140,12 @@ export default function HeroCarousel() {
 
       <div className="carousel-wrap"
         onTouchStart={e => { touchX.current = e.changedTouches[0].clientX; }}
-        onTouchEnd={e => { const d = touchX.current - e.changedTouches[0].clientX; if(Math.abs(d)>50) nav(d>0?1:-1); }}
+        onTouchEnd={e => { const d = touchX.current - e.changedTouches[0].clientX; if (Math.abs(d) > 50) nav(d > 0 ? 1 : -1); }}
       >
-        <div className="carousel-track" style={{transform:`translateX(-${cur*100}%)`}}>
+        <div className="carousel-track" style={{ transform: `translateX(-${cur * 100}%)` }}>
           {slides.map((s, i) => (
-            <div key={i} className="c-slide" style={{background:s.bg}}>
-              <div className="c-deco1"/><div className="c-deco2"/>
+            <div key={i} className="c-slide" style={{ background: s.bg }}>
+              <div className="c-deco1" /><div className="c-deco2" />
               <div className="c-content">
                 <span className="c-badge">{s.badge}</span>
                 <h1 className="c-h1">
@@ -151,9 +156,20 @@ export default function HeroCarousel() {
                 <button className="c-btn">{s.cta} →</button>
               </div>
               <div className="c-visual">
-                <div className="c-avatar"><img src={s.emoji} alt="" /></div>
+                <div className="c-avatar">
+                  {s.visual.type === "image" ? (
+                    <Image
+                      src={s.visual.src}
+                      alt="Vishwas Diwas"
+                      fill
+                      style={{ objectFit: "cover", borderRadius: "24px 24px 0 0" }}
+                    />
+                  ) : (
+                    <span style={{ fontSize: 80 }}>{s.visual.value}</span>
+                  )}
+                </div>
               </div>
-              {s.showBadge && <div className="vd-badge">VISHWAS<br/>DIWAS</div>}
+              {s.showBadge && <div className="vd-badge">VISHWAS<br />DIWAS</div>}
             </div>
           ))}
         </div>
@@ -161,8 +177,8 @@ export default function HeroCarousel() {
         <button className="c-arr c-prev" onClick={() => nav(-1)}>‹</button>
         <button className="c-arr c-next" onClick={() => nav(1)}>›</button>
         <div className="c-dots">
-          {slides.map((_,i) => (
-            <div key={i} className={`c-dot${i===cur?" active":""}`}
+          {slides.map((_, i) => (
+            <div key={i} className={`c-dot${i === cur ? " active" : ""}`}
               onClick={() => { goTo(i); startAuto(); }} />
           ))}
         </div>
