@@ -8,11 +8,6 @@ interface Feature {
 
 const features: Feature[] = [
   {
-    icon: "👨‍🏫",
-    title: "Expert English Faculty",
-    desc: "Learn from certified English trainers with years of experience in spoken, written, and business English.",
-  },
-  {
     icon: "🗣️",
     title: "Spoken English Classes",
     desc: "Build fluency and confidence through daily practice sessions, role plays, and real conversation drills.",
@@ -23,19 +18,9 @@ const features: Feature[] = [
     desc: "Handcrafted notes covering every grammar rule — from basics to advanced — for clear and correct English.",
   },
   {
-    icon: "📅",
-    title: "Personalized Study Planner",
-    desc: "Custom schedules designed around your pace and goals to help you improve faster and smarter.",
-  },
-  {
     icon: "🎤",
     title: "Public Speaking Training",
     desc: "Overcome stage fear and develop powerful presentation skills through guided speaking exercises.",
-  },
-  {
-    icon: "👤",
-    title: "1-on-1 Personal Mentorship",
-    desc: "One-on-one sessions with expert mentors to identify your weaknesses and accelerate your progress.",
   },
   {
     icon: "✍️",

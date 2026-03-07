@@ -3,13 +3,13 @@ import HeroCarousel from "@/components/HeroCarousel";
 import MarqueeBanner from "@/components/MarqueeBanner";
 import TrustSection from "@/components/TrustSection";
 import WhyChooseEnglish from "@/components/WhyChooseEnglish";
-import CoursesSection from "@/components/CoursesSection";
+
 import FeaturesSection from "@/components/FeaturesSection";
-import TeachersSection from "@/components/TeachersSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
-import AppDownloadSection from "@/components/AppDownloadSection";
+
 import Footer from "@/components/Footer";
-import FloatingCallBtn from "@/components/FloatingCallBtn";
+
+import SuccessStories from "@/components/SuccessStories";
+import StudentStories from "@/components/Studentstories";
 
 export default function Home() {
   return (
@@ -19,13 +19,11 @@ export default function Home() {
       <MarqueeBanner />
       <TrustSection />
       <WhyChooseEnglish />
-      {/* <CoursesSection />
+      <SuccessStories /> 
+      <StudentStories />
       <FeaturesSection />
-      <TeachersSection />
-      <TestimonialsSection />
-      <AppDownloadSection />
+      
       <Footer />
-      <FloatingCallBtn /> */}
     </main>
   );
 }
