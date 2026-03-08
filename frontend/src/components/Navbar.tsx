@@ -142,7 +142,7 @@ export default function Navbar() {
           backdrop-filter: blur(22px) saturate(160%);
           -webkit-backdrop-filter: blur(22px) saturate(160%);
           box-shadow: 0 8px 40px rgba(0,0,0,0.30), 0 1px 0 rgba(255,255,255,0.08) inset;
-          transition: border-radius 0.38s cubic-bezier(0.4,0,0.2,1);
+          transition: border-radius cubic-bezier(0.4,0,0.2,1);
           overflow: hidden;
         }
         .navbar-root.rounded { border-radius: 9999px; }
