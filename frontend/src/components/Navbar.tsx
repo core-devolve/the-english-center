@@ -15,7 +15,7 @@ export default function Navbar() {
   // isRounded controls the pill shape — stays false until close animation fully ends
   const [isRounded, setIsRounded] = useState(true);
   const menuRef = useRef(null);
-  const closeTimerRef = useRef(null);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   useEffect(() => {
     const handleResize = () => {
