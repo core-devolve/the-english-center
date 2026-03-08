@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 
 const centerLinks = [
@@ -12,14 +12,54 @@ const centerLinks = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  // isRounded controls the pill shape — stays false until close animation fully ends
+  const [isRounded, setIsRounded] = useState(true);
+  const menuRef = useRef(null);
+  const closeTimerRef = useRef(null);
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1024) setOpen(false);
+      if (window.innerWidth >= 1024) {
+        setOpen(false);
+        setIsRounded(true);
+      }
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  useEffect(() => () => clearTimeout(closeTimerRef.current), []);
+
+  const handleToggle = () => {
+    if (!open) {
+      // Opening: immediately square the corners, then expand
+      clearTimeout(closeTimerRef.current);
+      setIsRounded(false);
+      setOpen(true);
+    } else {
+      // Closing: collapse content first, THEN re-pill after animation finishes
+      setOpen(false);
+      closeTimerRef.current = setTimeout(() => setIsRounded(true), 400);
+    }
+  };
+
+  // Drive max-height via JS so both open AND close are equally smooth
+  useEffect(() => {
+    const el = menuRef.current;
+    if (!el) return;
+
+    if (open) {
+      el.style.maxHeight = el.scrollHeight + "px";
+      el.style.opacity = "1";
+    } else {
+      // Pin current rendered height so browser knows where to animate FROM
+      el.style.maxHeight = el.scrollHeight + "px";
+      // Force reflow so the pinned value registers before we set it to 0
+      void el.offsetHeight;
+      el.style.maxHeight = "0px";
+      el.style.opacity = "0";
+    }
+  }, [open]);
 
   return (
     <>
@@ -98,17 +138,16 @@ export default function Navbar() {
           width: calc(100% - 24px);
           max-width: 1280px;
           border: 1px solid rgba(255,255,255,0.22);
-          background: rgba(255,255,255,0.09);
+          background: rgba(15, 15, 25, 0.60);
           backdrop-filter: blur(22px) saturate(160%);
           -webkit-backdrop-filter: blur(22px) saturate(160%);
-          box-shadow: 0 8px 40px rgba(0,0,0,0.22), 0 1px 0 rgba(255,255,255,0.08) inset;
-          transition: border-radius  cubic-bezier(0.4,0,0.2,1);
+          box-shadow: 0 8px 40px rgba(0,0,0,0.30), 0 1px 0 rgba(255,255,255,0.08) inset;
+          transition: border-radius 0.38s cubic-bezier(0.4,0,0.2,1);
           overflow: hidden;
         }
-        .navbar-root.closed   { border-radius: 9999px; }
-        .navbar-root.menu-open { border-radius: 24px; }
+        .navbar-root.rounded { border-radius: 9999px; }
+        .navbar-root.squared { border-radius: 24px; }
 
-        /* Mobile: simple flexbox so logo is left, hamburger is right */
         .navbar-bar {
           display: flex;
           align-items: center;
@@ -117,7 +156,6 @@ export default function Navbar() {
           padding: 0 20px;
         }
 
-        /* Desktop: switch to 3-col grid so center links are truly centered */
         @media (min-width: 1024px) {
           .navbar-root { border-radius: 9999px !important; width: 92%; }
           .navbar-bar {
@@ -126,13 +164,14 @@ export default function Navbar() {
           }
         }
 
+        /* JS drives max-height; CSS provides the transition timing */
         .mobile-menu {
           overflow: hidden;
           max-height: 0;
           opacity: 0;
-          transition: max-height 0.38s cubic-bezier(0.4,0,0.2,1), opacity 0.3s;
+          transition: max-height 0.38s cubic-bezier(0.4, 0, 0.2, 1),
+                      opacity    0.30s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .mobile-menu.open { max-height: 480px; opacity: 1; }
 
         .logo-circle {
           width: 38px; height: 38px;
@@ -153,8 +192,9 @@ export default function Navbar() {
           background: rgba(255,255,255,0.28);
           transform: scale(1.07);
         }
-        .logo-text-block { display: none; line-height: 1; }
-        @media (min-width: 480px) { .logo-text-block { display: block; } }
+
+        /* Always show logo text on ALL screen sizes */
+        .logo-text-block { display: block; line-height: 1; }
 
         .mobile-link {
           font-family: 'Poppins', sans-serif;
@@ -168,19 +208,18 @@ export default function Navbar() {
         }
         .mobile-link:hover { background: rgba(255,255,255,0.13); color: #fff; }
 
-        /* Visibility toggles */
-        .desktop-links    { display: none !important; }
+        .desktop-links     { display: none !important; }
         .desktop-admission { display: none !important; }
-        .hamburger-btn    { display: flex !important; }
+        .hamburger-btn     { display: flex !important; }
 
         @media (min-width: 1024px) {
-          .desktop-links    { display: flex !important; }
+          .desktop-links     { display: flex !important; }
           .desktop-admission { display: inline-flex !important; }
-          .hamburger-btn    { display: none !important; }
+          .hamburger-btn     { display: none !important; }
         }
       `}</style>
 
-      <nav className={`navbar-root ${open ? "menu-open" : "closed"}`}>
+      <nav className={`navbar-root ${isRounded ? "rounded" : "squared"}`}>
 
         {/* ── Main bar ── */}
         <div className="navbar-bar">
@@ -223,7 +262,7 @@ export default function Navbar() {
             </div>
           </Link>
 
-          {/* CENTER — Nav links (desktop only, sits in grid middle cell) */}
+          {/* CENTER — Nav links (desktop only) */}
           <div
             className="desktop-links"
             style={{ alignItems: "center", gap: "2px" }}
@@ -240,7 +279,7 @@ export default function Navbar() {
             </Link>
 
             <button
-              onClick={() => setOpen(!open)}
+              onClick={handleToggle}
               className="hamburger-btn"
               style={{
                 flexDirection: "column",
@@ -265,7 +304,7 @@ export default function Navbar() {
         </div>
 
         {/* ── Mobile dropdown ── */}
-        <div className={`mobile-menu ${open ? "open" : ""}`} aria-hidden={!open}>
+        <div ref={menuRef} className="mobile-menu" aria-hidden={!open}>
           <div style={{
             padding: "8px 16px 18px",
             display: "flex",
@@ -273,11 +312,14 @@ export default function Navbar() {
             gap: "2px",
             borderTop: "1px solid rgba(255,255,255,0.1)",
           }}>
-            {[...centerLinks, { name: "Admission", href: "/Contact" }].map(({ name, href }) => (
+            {[...centerLinks, { name: "Admission", href: "/Admission" }].map(({ name, href }) => (
               <Link
                 key={name}
                 href={href}
-                onClick={() => setOpen(false)}
+                onClick={() => {
+                  setOpen(false);
+                  closeTimerRef.current = setTimeout(() => setIsRounded(true), 400);
+                }}
                 className="mobile-link"
                 style={{ fontWeight: name === "Admission" ? 600 : 500 }}
               >
