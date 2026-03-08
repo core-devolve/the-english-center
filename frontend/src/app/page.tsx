@@ -18,10 +18,10 @@ export default function Home() {
       <HeroCarousel />
       <MarqueeBanner />
       <TrustSection />
+      <FeaturesSection />
       <WhyChooseEnglish />
       <SuccessStories /> 
       <StudentStories />
-      <FeaturesSection />
       
       <Footer />
     </main>

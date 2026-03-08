@@ -5,8 +5,9 @@ import Link from "next/link";
 const centerLinks = [
   { name: "Home", href: "/" },
   { name: "About", href: "/About" },
-  { name: "Courses", href: "/Darshan" },
+  { name: "Courses", href: "/Courses" },
   { name: "Events", href: "/Events" },
+  { name: "Testimonials", href: "/Testimonials" },
 ];
 
 export default function Navbar() {

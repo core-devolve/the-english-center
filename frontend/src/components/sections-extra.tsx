@@ -1,37 +1,153 @@
 // FeaturesSection
 const features = [
-  {icon:"🎯",title:"Live Interactive Classes",desc:"Learn directly from India's best educators with real-time doubt solving and live interactions.",bg:"rgba(241,196,15,0.2)"},
-  {icon:"📖",title:"Complete Study Material",desc:"Curated notes, DPPs, and PYQs designed by IIT & AIIMS toppers for maximum output.",bg:"rgba(37,99,235,0.2)"},
-  {icon:"✅",title:"Mock Tests & Analysis",desc:"National-level mock tests with detailed performance analytics to track your progress.",bg:"rgba(16,185,129,0.2)"},
-  {icon:"💬",title:"Doubt Resolution",desc:"24/7 doubt clearing via chat and community forums with fast expert responses.",bg:"rgba(244,63,94,0.2)"},
-  {icon:"📱",title:"Learn Anywhere",desc:"Access all content on mobile, tablet, or web — even offline with downloaded videos.",bg:"rgba(139,92,246,0.2)"},
-  {icon:"💰",title:"Most Affordable",desc:"Premium quality education starting at just ₹99 — because knowledge should reach every student.",bg:"rgba(249,115,22,0.2)"},
+  {
+    icon: "🎙️",
+    title: "Live Speaking Sessions",
+    desc: "Practice real-time spoken English with certified trainers. Build fluency, pronunciation, and confidence through interactive live classes.",
+    bg: "rgba(16,185,129,0.18)",
+  },
+  {
+    icon: "💼",
+    title: "Interview Mastery",
+    desc: "HR rounds, technical interviews, group discussions — get trained for every stage with mock sessions and expert feedback.",
+    bg: "rgba(59,130,246,0.18)",
+  },
+  {
+    icon: "✍️",
+    title: "Business Writing Skills",
+    desc: "Craft professional emails, reports, and presentations. Master workplace communication that makes you stand out.",
+    bg: "rgba(245,158,11,0.18)",
+  },
+  {
+    icon: "🧠",
+    title: "Grammar & Vocabulary",
+    desc: "Structured lessons covering grammar rules, idioms, and vocabulary — designed for adults with zero jargon.",
+    bg: "rgba(244,63,94,0.18)",
+  },
+  {
+    icon: "📱",
+    title: "Learn at Your Pace",
+    desc: "Access recorded sessions, practice drills, and worksheets anytime — on mobile, tablet, or desktop, even offline.",
+    bg: "rgba(139,92,246,0.18)",
+  },
+  {
+    icon: "💰",
+    title: "Flexible & Affordable",
+    desc: "Premium English coaching starting at just ₹199/month — designed for working professionals and students alike.",
+    bg: "rgba(249,115,22,0.18)",
+  },
 ];
 
 export function FeaturesSection() {
   return (
     <>
       <style>{`
-        .fs-sec{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);padding:72px 8%;font-family:'Poppins',sans-serif;}
-        .fs-tag{display:inline-block;background:rgba(255,255,255,0.15);color:#fff;font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px;margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;}
-        .fs-h2{font-size:clamp(24px,3.5vw,40px);font-weight:800;color:#fff;line-height:1.2;margin-bottom:10px;}
-        .fs-h2 span{color:#fde047;}
-        .fs-p{color:rgba(255,255,255,0.6);font-size:14px;max-width:500px;margin-bottom:48px;line-height:1.65;}
-        .fs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px;}
-        .fc{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:28px 24px;transition:all 0.3s;cursor:default;}
-        .fc:hover{background:rgba(91,45,196,0.3);border-color:rgba(91,45,196,0.5);transform:translateY(-4px);}
-        .fc-icon{width:54px;height:54px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:16px;}
-        .fc-title{color:#fff;font-size:15px;font-weight:700;margin-bottom:8px;}
-        .fc-desc{color:rgba(255,255,255,0.6);font-size:13px;line-height:1.65;}
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap');
+
+        .fs-sec {
+          background: linear-gradient(145deg, #0f172a 0%, #1e293b 60%, #0f2027 100%);
+          padding: 88px 8%;
+          font-family: 'DM Sans', sans-serif;
+          position: relative;
+          overflow: hidden;
+        }
+        .fs-sec::before {
+          content: '';
+          position: absolute;
+          top: -120px;
+          right: -80px;
+          width: 420px;
+          height: 420px;
+          border-radius: 50%;
+          background: radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 70%);
+          pointer-events: none;
+        }
+        .fs-tag {
+          display: inline-block;
+          background: rgba(16,185,129,0.15);
+          color: #34d399;
+          font-size: 11px;
+          font-weight: 600;
+          padding: 5px 16px;
+          border-radius: 30px;
+          margin-bottom: 14px;
+          text-transform: uppercase;
+          letter-spacing: 1.5px;
+          border: 1px solid rgba(52,211,153,0.3);
+        }
+        .fs-h2 {
+          font-family: 'Playfair Display', serif;
+          font-size: clamp(26px, 3.5vw, 44px);
+          font-weight: 800;
+          color: #f1f5f9;
+          line-height: 1.2;
+          margin-bottom: 14px;
+        }
+        .fs-h2 span { color: #34d399; }
+        .fs-p {
+          color: rgba(255,255,255,0.5);
+          font-size: 15px;
+          max-width: 520px;
+          margin-bottom: 52px;
+          line-height: 1.75;
+        }
+        .fs-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+          gap: 20px;
+        }
+        .fc {
+          background: rgba(255,255,255,0.05);
+          border: 1px solid rgba(255,255,255,0.1);
+          border-radius: 18px;
+          padding: 30px 24px;
+          transition: all 0.35s ease;
+          cursor: default;
+        }
+        .fc:hover {
+          background: rgba(16,185,129,0.12);
+          border-color: rgba(52,211,153,0.35);
+          transform: translateY(-5px);
+          box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+        }
+        .fc-icon {
+          width: 56px;
+          height: 56px;
+          border-radius: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 26px;
+          margin-bottom: 18px;
+        }
+        .fc-title {
+          color: #f1f5f9;
+          font-size: 15px;
+          font-weight: 600;
+          margin-bottom: 10px;
+        }
+        .fc-desc {
+          color: rgba(255,255,255,0.52);
+          font-size: 13.5px;
+          line-height: 1.7;
+        }
       `}</style>
       <section className="fs-sec">
-        <span className="fs-tag">Why Choose PW?</span>
-        <h2 className="fs-h2">Everything You Need to<br/><span>Crack Any Exam</span></h2>
-        <p className="fs-p">From live classes to test series, PW has a complete ecosystem built to make you succeed.</p>
+        <span className="fs-tag">Why SpeakPro English?</span>
+        <h2 className="fs-h2">
+          Everything You Need to<br />
+          <span>Speak, Write & Succeed</span>
+        </h2>
+        <p className="fs-p">
+          Whether you're a student, a fresher, or a working professional — our platform gives you
+          a complete English communication toolkit to grow with confidence.
+        </p>
         <div className="fs-grid">
-          {features.map(f => (
+          {features.map((f) => (
             <div key={f.title} className="fc">
-              <div className="fc-icon" style={{background:f.bg}}>{f.icon}</div>
+              <div className="fc-icon" style={{ background: f.bg }}>
+                {f.icon}
+              </div>
               <div className="fc-title">{f.title}</div>
               <div className="fc-desc">{f.desc}</div>
             </div>
@@ -44,41 +160,155 @@ export function FeaturesSection() {
 
 // TeachersSection
 const teachers = [
-  {name:"Alakh Pandey",sub:"Physics | IIT Kanpur",emoji:"⚛️",g:"linear-gradient(135deg,#fde68a,#f59e0b)",s:"10M+"},
-  {name:"Sachin Sir",sub:"Chemistry | IIT Delhi",emoji:"🧪",g:"linear-gradient(135deg,#bfdbfe,#3b82f6)",s:"5M+"},
-  {name:"Neeraj Sir",sub:"Biology | AIIMS Alumni",emoji:"🧬",g:"linear-gradient(135deg,#bbf7d0,#22c55e)",s:"4M+"},
-  {name:"Pankaj Sir",sub:"Maths | IIT Bombay",emoji:"📐",g:"linear-gradient(135deg,#fecdd3,#f43f5e)",s:"6M+"},
-  {name:"Bhanwar Sir",sub:"History | UPSC Expert",emoji:"🏛️",g:"linear-gradient(135deg,#ddd6fe,#7c3aed)",s:"3M+"},
+  {
+    name: "Meera Kapoor",
+    sub: "Spoken English | 12 yrs exp",
+    emoji: "🎙️",
+    g: "linear-gradient(135deg,#d1fae5,#10b981)",
+    s: "80K+",
+  },
+  {
+    name: "Rahul Verma",
+    sub: "Interview Coach | Ex-HR Lead",
+    emoji: "💼",
+    g: "linear-gradient(135deg,#bfdbfe,#3b82f6)",
+    s: "60K+",
+  },
+  {
+    name: "Anjali Singh",
+    sub: "Business English | MBA",
+    emoji: "✍️",
+    g: "linear-gradient(135deg,#fde68a,#f59e0b)",
+    s: "45K+",
+  },
+  {
+    name: "David Mathew",
+    sub: "IELTS & TOEFL Expert",
+    emoji: "🌍",
+    g: "linear-gradient(135deg,#fecdd3,#f43f5e)",
+    s: "55K+",
+  },
+  {
+    name: "Pooja Nair",
+    sub: "Grammar & Writing Coach",
+    emoji: "📚",
+    g: "linear-gradient(135deg,#ddd6fe,#7c3aed)",
+    s: "40K+",
+  },
 ];
 
 export function TeachersSection() {
   return (
     <>
       <style>{`
-        .ts-sec{background:#fff;padding:72px 8%;font-family:'Poppins',sans-serif;}
-        .ts-tag{display:inline-block;background:#f5f3ff;color:#5b2dc4;font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;}
-        .ts-h2{font-size:clamp(24px,3.5vw,38px);font-weight:800;color:#1a1a2e;margin-bottom:8px;}
-        .ts-h2 span{color:#5b2dc4;}
-        .ts-p{color:#9ca3af;font-size:14px;max-width:480px;margin-bottom:36px;line-height:1.65;}
-        .ts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:20px;}
-        .tc{text-align:center;padding:28px 16px;border-radius:16px;background:#fff;box-shadow:0 4px 20px rgba(0,0,0,0.08);border:1px solid #f0f0f0;transition:all 0.3s;cursor:pointer;}
-        .tc:hover{transform:translateY(-6px);box-shadow:0 12px 40px rgba(0,0,0,0.12);border-color:#ddd6fe;}
-        .tc-pic{width:88px;height:88px;border-radius:50%;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:36px;border:3px solid #5b2dc4;box-shadow:0 0 0 4px #f5f3ff;}
-        .tc-name{font-size:15px;font-weight:700;color:#1a1a2e;margin-bottom:4px;}
-        .tc-sub{font-size:12px;color:#9ca3af;margin-bottom:10px;}
-        .tc-tag{display:inline-block;background:#f5f3ff;color:#5b2dc4;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;}
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap');
+
+        .ts-sec {
+          background: #f8fffe;
+          padding: 88px 8%;
+          font-family: 'DM Sans', sans-serif;
+        }
+        .ts-tag {
+          display: inline-block;
+          background: #ecfdf5;
+          color: #059669;
+          font-size: 11px;
+          font-weight: 600;
+          padding: 5px 16px;
+          border-radius: 30px;
+          margin-bottom: 12px;
+          text-transform: uppercase;
+          letter-spacing: 1.5px;
+          border: 1px solid rgba(5,150,105,0.2);
+        }
+        .ts-h2 {
+          font-family: 'Playfair Display', serif;
+          font-size: clamp(26px, 3.5vw, 42px);
+          font-weight: 800;
+          color: #0f172a;
+          margin-bottom: 10px;
+        }
+        .ts-h2 span { color: #059669; }
+        .ts-p {
+          color: #94a3b8;
+          font-size: 15px;
+          max-width: 500px;
+          margin-bottom: 40px;
+          line-height: 1.75;
+        }
+        .ts-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+          gap: 20px;
+        }
+        .tc {
+          text-align: center;
+          padding: 32px 18px;
+          border-radius: 20px;
+          background: #fff;
+          box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+          border: 1px solid #e2e8f0;
+          transition: all 0.3s ease;
+          cursor: pointer;
+        }
+        .tc:hover {
+          transform: translateY(-7px);
+          box-shadow: 0 16px 48px rgba(5,150,105,0.15);
+          border-color: #6ee7b7;
+        }
+        .tc-pic {
+          width: 90px;
+          height: 90px;
+          border-radius: 50%;
+          margin: 0 auto 16px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 38px;
+          border: 3px solid #10b981;
+          box-shadow: 0 0 0 5px #ecfdf5;
+        }
+        .tc-name {
+          font-size: 15px;
+          font-weight: 700;
+          color: #0f172a;
+          margin-bottom: 4px;
+        }
+        .tc-sub {
+          font-size: 12px;
+          color: #94a3b8;
+          margin-bottom: 12px;
+          line-height: 1.5;
+        }
+        .tc-tag {
+          display: inline-block;
+          background: #ecfdf5;
+          color: #059669;
+          font-size: 11px;
+          font-weight: 600;
+          padding: 4px 12px;
+          border-radius: 30px;
+          border: 1px solid rgba(5,150,105,0.2);
+        }
       `}</style>
       <section className="ts-sec">
-        <span className="ts-tag">Expert Faculty</span>
-        <h2 className="ts-h2">Learn From the <span>Best Teachers</span></h2>
-        <p className="ts-p">Our educators are IITians, doctors, and subject experts who make even complex topics easy.</p>
+        <span className="ts-tag">Expert Trainers</span>
+        <h2 className="ts-h2">
+          Learn From <span>Real Experts</span>
+        </h2>
+        <p className="ts-p">
+          Our trainers are seasoned professionals — HR managers, corporate trainers, IELTS experts,
+          and communication coaches — who bring real-world experience to every class.
+        </p>
         <div className="ts-grid">
-          {teachers.map(t => (
+          {teachers.map((t) => (
             <div key={t.name} className="tc">
-              <div className="tc-pic" style={{background:t.g}}>{t.emoji}</div>
+              <div className="tc-pic" style={{ background: t.g }}>
+                {t.emoji}
+              </div>
               <div className="tc-name">{t.name}</div>
               <div className="tc-sub">{t.sub}</div>
-              <span className="tc-tag">{t.s} Students</span>
+              <span className="tc-tag">{t.s} Learners</span>
             </div>
           ))}
         </div>
@@ -89,38 +319,150 @@ export function TeachersSection() {
 
 // TestimonialsSection
 const testimonials = [
-  {i:"R",name:"Rohan Sharma",course:"JEE Advanced AIR 47",text:"PW's Arjuna Batch completely transformed my preparation. Alakh Sir's teaching style makes physics feel intuitive. Couldn't have cracked JEE without PW!",g:"linear-gradient(135deg,#5b2dc4,#8b5cf6)"},
-  {i:"P",name:"Priya Verma",course:"NEET Rank 312",text:"The biology videos by Neeraj Sir are phenomenal. At ₹2,499 for a year-long course, PW is truly a blessing for students from small towns like mine.",g:"linear-gradient(135deg,#2563eb,#3b82f6)"},
-  {i:"A",name:"Arjun Patel",course:"IIT Bombay – CSE",text:"From a Tier-3 city with no coaching nearby, PW was my only hope. The mock tests and doubt sessions helped me secure my seat at IIT Bombay.",g:"linear-gradient(135deg,#059669,#34d399)"},
-  {i:"S",name:"Sneha Mishra",course:"UPSC Prelims Cleared",text:"The UPSC Sankalp batch is incredibly well-structured. Current affairs, static GK, answer writing — everything covered. Best investment of my prep journey!",g:"linear-gradient(135deg,#dc2626,#f87171)"},
+  {
+    i: "R",
+    name: "Ravi Shankar",
+    course: "Placed at TCS | Fresher",
+    text: "After 3 failed HR rounds, I joined SpeakPro's Interview Mastery course. Within 6 weeks, I cracked my TCS interview. The mock sessions are incredibly realistic!",
+    g: "linear-gradient(135deg,#059669,#34d399)",
+  },
+  {
+    i: "N",
+    name: "Neha Gupta",
+    course: "Team Lead | IT Company",
+    text: "My team used to joke about my 'Hinglish' in meetings. Now I lead client calls with confidence. The Business English batch literally changed my career trajectory.",
+    g: "linear-gradient(135deg,#2563eb,#60a5fa)",
+  },
+  {
+    i: "A",
+    name: "Aakash Mehta",
+    course: "IELTS 7.5 Band | Canada PR",
+    text: "David Sir's IELTS strategies are unmatched. From 5.5 to 7.5 bands in just 2 months. The speaking and writing modules especially made all the difference.",
+    g: "linear-gradient(135deg,#d97706,#fbbf24)",
+  },
+  {
+    i: "S",
+    name: "Sana Mirza",
+    course: "HR Executive | MNC",
+    text: "As someone from a vernacular medium background, English always felt like a barrier. SpeakPro made it approachable, fun, and practical. Zero judgment, full support!",
+    g: "linear-gradient(135deg,#dc2626,#f87171)",
+  },
 ];
 
 export function TestimonialsSection() {
   return (
     <>
       <style>{`
-        .tst-sec{background:#f8f9fa;padding:72px 8%;font-family:'Poppins',sans-serif;}
-        .tst-tag{display:inline-block;background:#f5f3ff;color:#5b2dc4;font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px;margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;}
-        .tst-h2{font-size:clamp(24px,3.5vw,38px);font-weight:800;color:#1a1a2e;margin-bottom:36px;}
-        .tst-h2 span{color:#5b2dc4;}
-        .tst-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;}
-        .tcard{background:#fff;border-radius:16px;padding:24px;box-shadow:0 4px 20px rgba(0,0,0,0.07);border-left:4px solid #5b2dc4;transition:all 0.3s;}
-        .tcard:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,0.12);}
-        .tcard-hdr{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
-        .tcard-av{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;font-weight:700;flex-shrink:0;}
-        .tcard-name{font-weight:700;font-size:14px;color:#1a1a2e;}
-        .tcard-course{font-size:11px;color:#9ca3af;}
-        .tcard-stars{color:#f59e0b;font-size:12px;letter-spacing:2px;margin-bottom:8px;}
-        .tcard-text{font-size:13px;color:#718096;line-height:1.65;}
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap');
+
+        .tst-sec {
+          background: #f1f5f9;
+          padding: 88px 8%;
+          font-family: 'DM Sans', sans-serif;
+        }
+        .tst-tag {
+          display: inline-block;
+          background: #ecfdf5;
+          color: #059669;
+          font-size: 11px;
+          font-weight: 600;
+          padding: 5px 16px;
+          border-radius: 30px;
+          margin-bottom: 12px;
+          text-transform: uppercase;
+          letter-spacing: 1.5px;
+          border: 1px solid rgba(5,150,105,0.2);
+        }
+        .tst-h2 {
+          font-family: 'Playfair Display', serif;
+          font-size: clamp(26px, 3.5vw, 42px);
+          font-weight: 800;
+          color: #0f172a;
+          margin-bottom: 40px;
+        }
+        .tst-h2 span { color: #059669; }
+        .tst-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+          gap: 22px;
+        }
+        .tcard {
+          background: #fff;
+          border-radius: 18px;
+          padding: 26px;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+          border-left: 4px solid #10b981;
+          transition: all 0.3s ease;
+          position: relative;
+        }
+        .tcard::before {
+          content: '"';
+          font-family: 'Playfair Display', serif;
+          font-size: 72px;
+          color: #d1fae5;
+          position: absolute;
+          top: 10px;
+          right: 20px;
+          line-height: 1;
+          pointer-events: none;
+        }
+        .tcard:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 14px 40px rgba(16,185,129,0.15);
+        }
+        .tcard-hdr {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          margin-bottom: 14px;
+        }
+        .tcard-av {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #fff;
+          font-size: 18px;
+          font-weight: 700;
+          flex-shrink: 0;
+        }
+        .tcard-name {
+          font-weight: 700;
+          font-size: 14px;
+          color: #0f172a;
+        }
+        .tcard-course {
+          font-size: 12px;
+          color: #059669;
+          font-weight: 500;
+          margin-top: 2px;
+        }
+        .tcard-stars {
+          color: #f59e0b;
+          font-size: 13px;
+          letter-spacing: 2px;
+          margin-bottom: 10px;
+        }
+        .tcard-text {
+          font-size: 13.5px;
+          color: #64748b;
+          line-height: 1.75;
+        }
       `}</style>
       <section className="tst-sec">
-        <span className="tst-tag">Student Stories</span>
-        <h2 className="tst-h2">What Our <span>Students Say</span></h2>
+        <span className="tst-tag">Success Stories</span>
+        <h2 className="tst-h2">
+          Real People, <span>Real Results</span>
+        </h2>
         <div className="tst-grid">
-          {testimonials.map(t => (
+          {testimonials.map((t) => (
             <div key={t.name} className="tcard">
               <div className="tcard-hdr">
-                <div className="tcard-av" style={{background:t.g}}>{t.i}</div>
+                <div className="tcard-av" style={{ background: t.g }}>
+                  {t.i}
+                </div>
                 <div>
                   <div className="tcard-name">{t.name}</div>
                   <div className="tcard-course">{t.course}</div>
