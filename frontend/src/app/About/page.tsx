@@ -354,8 +354,8 @@ export default function AboutUs() {
             </div>
             <h1 className="ab-hero-title">
               About{" "}
-              <span className="yellow underline-yellow">SpeakEdge</span>
-              <br />Academy
+              <span className="yellow underline-yellow">The English</span>
+              <br />Center
             </h1>
             <p className="ab-hero-sub">
               Transforming the way India learns English — one student at a time,
@@ -372,7 +372,7 @@ export default function AboutUs() {
             <div className="ab-logo-card">
               <div className="ab-logo-icon">📖</div>
               <div>
-                <div className="ab-logo-name">Speak<span>Edge</span></div>
+                <div className="ab-logo-name">The English<span>Center</span></div>
                 <div className="ab-logo-sub">India&apos;s Trusted English Platform</div>
               </div>
             </div>

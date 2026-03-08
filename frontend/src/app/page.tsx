@@ -14,7 +14,7 @@ import StudentStories from "@/components/Studentstories";
 export default function Home() {
   return (
     <main>
-      <Navbar />
+   
       <HeroCarousel />
       <MarqueeBanner />
       <TrustSection />
@@ -23,7 +23,7 @@ export default function Home() {
       <SuccessStories /> 
       <StudentStories />
       
-      <Footer />
+     
     </main>
   );
 }

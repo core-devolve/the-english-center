@@ -6,7 +6,7 @@ const centerLinks = [
   { name: "Home", href: "/" },
   { name: "About", href: "/About" },
   { name: "Courses", href: "/Courses" },
-  { name: "Events", href: "/Events" },
+  { name: "Gallery", href: "/Gallery" },
   { name: "Testimonials", href: "/Testimonials" },
 ];
 
@@ -235,7 +235,7 @@ export default function Navbar() {
 
           {/* RIGHT — Admission + hamburger */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: "10px" }}>
-            <Link href="/Contact" className="admission-btn desktop-admission">
+            <Link href="/Admission" className="admission-btn desktop-admission">
               Admission
             </Link>
 
