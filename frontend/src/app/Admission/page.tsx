@@ -13,13 +13,11 @@ const scheduleOptions = [
 const levelOptions = ["Complete Beginner", "Basic", "Intermediate", "Upper Intermediate", "Advanced"];
 
 const steps = [
-  { icon: "📝", title: "Fill the Form", desc: "Submit your admission form with your details, course preference and schedule." },
+  { icon: "📝", title: "Fill the Form", desc: "Submit your enquiry form with your details and schedule preference." },
   { icon: "📞", title: "Counselling Call", desc: "Our team will call you within 24 hours to understand your goals and guide you." },
   { icon: "💳", title: "Pay & Confirm", desc: "Complete your payment securely online and get instant confirmation." },
   { icon: "🚀", title: "Start Learning", desc: "Receive your login credentials and begin your first class on the scheduled date." },
 ];
-
-
 
 const faqs = [
   { q: "Are classes fully online?", a: "Yes, 100% of our classes are conducted live online via Zoom / Google Meet. You can attend from anywhere in India or abroad." },
@@ -41,21 +39,20 @@ const benefits = [
 
 interface FormData {
   name: string; phone: string; email: string; city: string;
-  course: string; level: string; schedule: string; message: string;
+  level: string; schedule: string; message: string;
 }
 
-export default function AdmissionPage() {
-  const [form, setForm] = useState<FormData>({ name:"", phone:"", email:"", city:"", course:"", level:"", schedule:"", message:"" });
+export default function EnquiryPage() {
+  const [form, setForm] = useState<FormData>({ name:"", phone:"", email:"", city:"", level:"", schedule:"", message:"" });
   const [submitted, setSubmitted] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
     setForm(p => ({ ...p, [e.target.name]: e.target.value }));
 
   const handleSubmit = (e: React.MouseEvent) => {
     e.preventDefault();
-    if (!form.name || !form.phone || !form.course) return;
+    if (!form.name || !form.phone) return;
     setSubmitted(true);
   };
 
@@ -139,8 +136,6 @@ export default function AdmissionPage() {
         .ap-form-title { font-family:'Fraunces',serif; font-size:22px; font-weight:700; color:#0f0c29; letter-spacing:-0.3px; margin-bottom:6px; }
         .ap-form-sub { font-size:13px; color:#6b7280; margin-bottom:28px; }
 
-
-
         .ap-form-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
         .ap-form-full { grid-column:1/-1; }
         .ap-field-label { font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:700; color:#374151; text-transform:uppercase; letter-spacing:0.8px; margin-bottom:6px; display:block; }
@@ -176,8 +171,6 @@ export default function AdmissionPage() {
         .ap-success-icon { font-size:64px; margin-bottom:16px; }
         .ap-success-title { font-family:'Fraunces',serif; font-size:24px; font-weight:700; color:#0f0c29; margin-bottom:8px; letter-spacing:-0.3px; }
         .ap-success-sub { font-size:14px; color:#6b7280; line-height:1.6; }
-
-
 
         /* ── RIGHT SIDE ── */
         .ap-right-col { display:flex; flex-direction:column; gap:20px; position:sticky; top:24px; }
@@ -282,33 +275,26 @@ export default function AdmissionPage() {
             <div className="ap-form-wrap">
               {!submitted ? (
                 <>
-                  <div className="ap-form-title">Admission Application Form</div>
+                  <div className="ap-form-title">Enquiry Form</div>
                   <div className="ap-form-sub">Fill all required fields — our team will contact you within 24 hours.</div>
 
                   <div className="ap-form-grid">
-                    {/* Name */}
                     <div>
                       <label className="ap-field-label">Full Name <span>*</span></label>
                       <input className="ap-input" name="name" placeholder="e.g. Priya Sharma" value={form.name} onChange={handleChange} />
                     </div>
-                    {/* Phone */}
                     <div>
                       <label className="ap-field-label">Phone Number <span>*</span></label>
                       <input className="ap-input" name="phone" placeholder="+91 98765 43210" value={form.phone} onChange={handleChange} />
                     </div>
-                    {/* Email */}
                     <div>
                       <label className="ap-field-label">Email Address</label>
                       <input className="ap-input" name="email" type="email" placeholder="you@example.com" value={form.email} onChange={handleChange} />
                     </div>
-                    {/* City */}
                     <div>
                       <label className="ap-field-label">City / State</label>
                       <input className="ap-input" name="city" placeholder="e.g. Bengaluru, Karnataka" value={form.city} onChange={handleChange} />
                     </div>
-                    {/* Course */}
-                    
-                    {/* Level */}
                     <div>
                       <label className="ap-field-label">Current English Level</label>
                       <select className="ap-select" name="level" value={form.level} onChange={handleChange}>
@@ -316,7 +302,6 @@ export default function AdmissionPage() {
                         {levelOptions.map(l=><option key={l} value={l}>{l}</option>)}
                       </select>
                     </div>
-                    {/* Schedule */}
                     <div>
                       <label className="ap-field-label">Preferred Schedule</label>
                       <select className="ap-select" name="schedule" value={form.schedule} onChange={handleChange}>
@@ -324,14 +309,12 @@ export default function AdmissionPage() {
                         {scheduleOptions.map(s=><option key={s} value={s}>{s}</option>)}
                       </select>
                     </div>
-                    {/* Message */}
                     <div className="ap-form-full">
                       <label className="ap-field-label">Your Goal / Message</label>
                       <textarea className="ap-textarea" name="message" placeholder="Tell us your learning goal or any specific requirement..." value={form.message} onChange={handleChange} />
                     </div>
-                    {/* Submit */}
                     <div className="ap-form-full">
-                      <button className="ap-submit-btn" onClick={handleSubmit}>Submit Application →</button>
+                      <button className="ap-submit-btn" onClick={handleSubmit}>Submit Enquiry →</button>
                       <p className="ap-form-note">🔒 Your information is 100% secure and never shared.</p>
                     </div>
                   </div>
@@ -339,13 +322,13 @@ export default function AdmissionPage() {
               ) : (
                 <div className="ap-success">
                   <div className="ap-success-icon">🎉</div>
-                  <div className="ap-success-title">Application Submitted!</div>
+                  <div className="ap-success-title">Enquiry Submitted!</div>
                   <p className="ap-success-sub">
-                    Thank you, <strong>{form.name}</strong>! We&apos;ve received your application for <strong>{form.course}</strong>.<br /><br />
-                    Our team will call you on <strong>{form.phone}</strong> within 24 hours to complete your admission.
+                    Thank you, <strong>{form.name}</strong>!<br /><br />
+                    Our team will call you on <strong>{form.phone}</strong> within 24 hours to guide you further.
                   </p>
                   <button
-                    onClick={()=>{setSubmitted(false); setForm({name:"",phone:"",email:"",city:"",course:"",level:"",schedule:"",message:""});}}
+                    onClick={()=>{setSubmitted(false); setForm({name:"",phone:"",email:"",city:"",level:"",schedule:"",message:""});}}
                     style={{marginTop:20,background:"linear-gradient(135deg,#4f46e5,#7c3aed)",color:"#fff",border:"none",padding:"11px 24px",borderRadius:10,fontFamily:"'Space Grotesk',sans-serif",fontSize:13,fontWeight:700,cursor:"pointer"}}
                   >
                     Submit Another →
@@ -390,24 +373,6 @@ export default function AdmissionPage() {
           </div>
         </div>
 
-        {/* ── FAQ ── */}
-        <div className="ap-faq-section">
-          <div style={{textAlign:"center",marginBottom:32}}>
-            <div className="ap-section-eyebrow">FAQ</div>
-            <h2 className="ap-section-title">Frequently Asked <span>Questions</span></h2>
-          </div>
-          <div className="ap-faq-list">
-            {faqs.map((f,i)=>(
-              <div key={i} className="ap-faq-item">
-                <div className="ap-faq-q" onClick={()=>setOpenFaq(openFaq===i?null:i)}>
-                  <span className="ap-faq-q-text">{f.q}</span>
-                  <span className={`ap-faq-chevron ${openFaq===i?"open":""}`}>▼</span>
-                </div>
-                {openFaq===i && <div className="ap-faq-a">{f.a}</div>}
-              </div>
-            ))}
-          </div>
-        </div>
 
       </div>
     </>

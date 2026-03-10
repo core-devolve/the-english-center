@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const centerLinks = [
   { name: "Home", href: "/" },
@@ -16,6 +17,7 @@ export default function Navbar() {
   const [isRounded, setIsRounded] = useState(true);
   const menuRef = useRef<HTMLDivElement>(null);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+   const pathname = usePathname();
 
   useEffect(() => {
     const handleResize = () => {
@@ -27,7 +29,7 @@ export default function Navbar() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
+  
   useEffect(() => () => clearTimeout(closeTimerRef.current), []);
 
   const handleToggle = () => {
@@ -47,7 +49,7 @@ export default function Navbar() {
   useEffect(() => {
     const el = menuRef.current;
     if (!el) return;
-
+    
     if (open) {
       el.style.maxHeight = el.scrollHeight + "px";
       el.style.opacity = "1";
@@ -60,7 +62,8 @@ export default function Navbar() {
       el.style.opacity = "0";
     }
   }, [open]);
-
+  
+  if (pathname.startsWith("/admin")) return null;
   return (
     <>
       <style>{`

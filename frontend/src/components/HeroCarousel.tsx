@@ -223,7 +223,7 @@ export default function HeroCarousel() {
                   <span className="hl">{s.line2}</span>
                 </h1>
                 <p className="c-desc">{s.desc}</p>
-                <button className="c-btn">{s.cta} →</button>
+                <button className="c-btn">{s.cta} → </button>
               </div>
 
               <div className="c-visual">
