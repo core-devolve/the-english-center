@@ -8,6 +8,11 @@ import Preloader from "@/components/Preloader";
 export const metadata: Metadata = {
   title: "The English Center",
   description: "Premier English learning center — admissions, courses, and more.",
+  icons: {
+    icon: "/logo_icon.png",
+    shortcut: "/logo_icon.png",
+    apple: "/logo_icon.png",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode;}>) {

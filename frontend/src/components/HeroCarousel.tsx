@@ -1,6 +1,8 @@
 "use client";
+
 import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import teacher from "../../public/teacher.png";
 import teacher1 from "../../public/teacher1.png";
 import teacher2 from "../../public/teacher1.png";
@@ -270,7 +272,7 @@ export default function HeroCarousel() {
                   <span className="hl">{s.line2}</span>
                 </h1>
                 <p className="c-desc">{s.desc}</p>
-                <button className="c-btn">{s.cta} →</button>
+                <button className="c-btn"> <Link href="/Admission">{s.cta} →</Link></button>
               </div>
 
               <div className="c-visual">
