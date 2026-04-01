@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 interface Stat {
   num: string;
@@ -13,17 +14,16 @@ interface Feature {
 }
 
 const stats: Stat[] = [
-  { num: "5M+",  lbl: "Students" },
-  { num: "300+", lbl: "Educators" },
+  { num: "100+",  lbl: "Students" },
   { num: "97%",  lbl: "Success Rate" },
-  { num: "₹149", lbl: "Starting Price" },
+  { num: "₹499", lbl: "Starting Price" },
 ];
 
 const features: Feature[] = [
-  { icon: "🎥", tag: "LIVE", title: "Daily Live",   sub: "Interactive classes" },
-  { icon: "📝", tag: "",     title: "8 Million +",  sub: "Tests, sample papers & notes" },
-  { icon: "🧠", tag: "",     title: "24 x 7",       sub: "Doubt solving sessions" },
-  { icon: "🏅", tag: "",     title: "50 +",         sub: "Offline centres" },
+  { icon: "🎥", tag: "LIVE", title: "Live Online",   sub: "Real-time interactive sessions" },
+  { icon: "📝", tag: "",     title: "Study Material",  sub: "Tests, sample papers & notes" },
+  { icon: "🏅", tag: "",     title: "Offline Batches",         sub: "Classroom learning at our centre" },
+  { icon: "📊", tag: "",     title: "Test Series",         sub: "Practice tests & mock exams" },
 ];
 
 export default function EnglishCoachingHero() {
@@ -398,7 +398,7 @@ export default function EnglishCoachingHero() {
             </h1>
 
             <p className="ec-sub">
-              Unlock your English potential with SpeakEdge — the most affordable spoken &amp;
+              Unlock your English potential with The English Center — the most affordable spoken &amp;
               written English solution trusted by millions across India.
             </p>
 
@@ -411,7 +411,7 @@ export default function EnglishCoachingHero() {
               ))}
             </div>
 
-            <button className="ec-cta">Get Started Free →</button>
+            <button className="ec-cta"> <a href="/Admission"> Get Started Free →</a></button>
           </div>
 
           {/* RIGHT VISUAL */}
@@ -420,14 +420,16 @@ export default function EnglishCoachingHero() {
               <div className="ec-ring" />
               <div className="ec-ring2" />
 
-              <div className="ec-teacher">👨‍🏫</div>
+              <div className="ec-teacher">
+                <Image src="/teacher.png" alt="Teacher" width={100} height={100} />
+              </div>
               <div className="ec-student">👩‍🎓</div>
 
               <div className="ec-bubble-q">
                 Sir, how do I improve my spoken English?
               </div>
               <div className="ec-bubble-a">
-                Practise daily with SpeakEdge — live classes, real feedback &amp; expert guidance!
+                Practise daily with The English Center — live classes, real feedback &amp; expert guidance!
               </div>
 
               <div className="ec-dot ec-dot-1" />

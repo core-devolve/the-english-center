@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 const centerLinks = [
@@ -17,7 +18,7 @@ export default function Navbar() {
   const [isRounded, setIsRounded] = useState(true);
   const menuRef = useRef<HTMLDivElement>(null);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
-   const pathname = usePathname();
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleResize = () => {
@@ -29,7 +30,7 @@ export default function Navbar() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-  
+
   useEffect(() => () => clearTimeout(closeTimerRef.current), []);
 
   const handleToggle = () => {
@@ -49,7 +50,7 @@ export default function Navbar() {
   useEffect(() => {
     const el = menuRef.current;
     if (!el) return;
-    
+
     if (open) {
       el.style.maxHeight = el.scrollHeight + "px";
       el.style.opacity = "1";
@@ -62,7 +63,7 @@ export default function Navbar() {
       el.style.opacity = "0";
     }
   }, [open]);
-  
+
   if (pathname.startsWith("/admin")) return null;
   return (
     <>
@@ -230,16 +231,7 @@ export default function Navbar() {
           {/* LEFT — Logo */}
           <Link href="/" className="logo-wrap">
             <div className="logo-circle">
-              <span style={{
-                color: "#fff",
-                fontFamily: "'Poppins', sans-serif",
-                fontWeight: 900,
-                fontSize: "9px",
-                letterSpacing: "-0.3px",
-                textAlign: "center",
-                lineHeight: 1,
-                padding: "0 3px",
-              }}>TEC</span>
+              <Image src="/logo_icon.png" alt="The English Centre" width={400} height={400} />
             </div>
             <div className="logo-text-block">
               <p style={{
@@ -261,7 +253,7 @@ export default function Navbar() {
                 textTransform: "uppercase",
                 marginTop: "2px",
                 whiteSpace: "nowrap",
-              }}>Language Institute</p>
+              }}>Gaurented sucess in carrer growth</p>
             </div>
           </Link>
 

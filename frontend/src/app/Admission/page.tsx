@@ -22,7 +22,7 @@ const steps = [
 
 const faqs = [
   { q: "Are classes fully online?",              a: "Yes, 100% live online via Zoom / Google Meet. Attend from anywhere in India or abroad." },
-  { q: "Will I get a certificate?",              a: "Every paid course comes with a SpeakEdge completion certificate you can share on LinkedIn." },
+  { q: "Will I get a certificate?",              a: "Every paid course comes with a The English Center completion certificate you can share on LinkedIn." },
   { q: "What if I miss a class?",                a: "All sessions are recorded and uploaded within 24 hours so you never miss content." },
   { q: "Is there an EMI option?",               a: "Yes — easy 3-month EMI for courses above ₹1,500. No interest, no hidden charges." },
   { q: "Can I switch my batch?",                a: "One free batch switch is allowed within the first week of joining." },
@@ -251,7 +251,7 @@ export default function EnquiryPage() {
             <h1 className="ap-hero-title">Apply for <span className="gold">Admission</span></h1>
             <p className="ap-hero-sub">Take the first step towards English fluency. Fill the form and our team will guide you through the rest.</p>
             <div className="ap-hero-stats">
-              {[["5,000+","Students Enrolled"],["24 hrs","Response Time"],["₹999","Starting At"],["100%","Online"]].map(([n,l])=>(
+              {[["100+","Students Enrolled"],["24 hrs","Response Time"],["₹499","Starting At"],["100%","Online"]].map(([n,l])=>(
                 <div key={l} style={{textAlign:"center"}}>
                   <span className="ap-stat-num">{n}</span>
                   <span className="ap-stat-lbl">{l}</span>
@@ -354,7 +354,7 @@ export default function EnquiryPage() {
           {/* RIGHT — Benefits + Contact */}
           <div className="ap-right-col">
             <div className="ap-benefits">
-              <div className="ap-benefits-title">Why Join <span>SpeakEdge?</span></div>
+              <div className="ap-benefits-title">Why Join <span>The English Center?</span></div>
               {benefits.map((b,i)=>(
                 <div key={i} className="ap-benefit-item">
                   <div className="ap-benefit-icon">{b.icon}</div>
@@ -372,7 +372,7 @@ export default function EnquiryPage() {
               {[
                 { icon:"📞", label:"Call Us",   val:"+91 98765 43210" },
                 { icon:"💬", label:"WhatsApp",  val:"+91 98765 43210" },
-                { icon:"📧", label:"Email",     val:"admissions@speakedge.in" },
+                { icon:"📧", label:"Email",     val:"admissions@TheEnglishCenter.in" },
               ].map((c,i)=>(
                 <div key={i} className="ap-contact-item">
                   <div className="ap-contact-icon">{c.icon}</div>

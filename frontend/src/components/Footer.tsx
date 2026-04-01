@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 const footerLinks = {
   Courses: [
     "Spoken English Foundation",
@@ -86,26 +86,15 @@ export default function Footer() {
         }
 
         /* Brand col */
-        .tec-ft-brand { padding-top: 4px; }
+        .tec-ft-brand { padding-top: 4px; text-align: left; }
         .tec-ft-logo {
-          display: inline-flex; align-items: center; gap: 12px;
+          display: block;
           margin-bottom: 18px;
         }
-        .tec-ft-logo-icon {
-          width: 46px; height: 46px; border-radius: 13px;
-          background: linear-gradient(135deg, #4f46e5, #7c3aed);
-          display: flex; align-items: center; justify-content: center;
-          font-size: 22px;
-          box-shadow: 0 6px 20px rgba(79,70,229,0.4);
-        }
-        .tec-ft-logo-text {
-          font-family: 'Fraunces', serif;
-          font-size: 20px; font-weight: 900;
-          color: #fff; letter-spacing: -0.3px; line-height: 1.15;
-        }
-        .tec-ft-logo-text span {
-          display: block; font-style: italic; color: #fbbf24;
-          font-size: 12px; font-weight: 700; letter-spacing: 0px;
+        .tec-ft-logo img {
+          height: 52px; width: auto;
+          object-fit: contain;
+          display: block;
         }
         .tec-ft-tagline {
           font-size: 13px; color: rgba(255,255,255,0.45);
@@ -236,7 +225,9 @@ export default function Footer() {
         @media (max-width: 768px) {
           .tec-ft-strip { grid-template-columns: repeat(2,1fr); }
           .tec-ft-main { grid-template-columns: 1fr 1fr; }
-          .tec-ft-brand { grid-column: 1/-1; grid-template-columns: 1fr; }
+          .tec-ft-brand { grid-column: 1/-1; grid-template-columns: 1fr; text-align: left; }
+          .tec-ft-brand > div { text-align: left; }
+          .tec-ft-logo { text-align: left; }
           .tec-ft-nl { flex-direction: column; padding: 24px; }
           .tec-ft-nl-input { width: 100%; }
           .tec-ft-nl-form { width: 100%; flex-direction: column; }
@@ -246,12 +237,15 @@ export default function Footer() {
         @media (max-width: 480px) {
           .tec-ft-main { grid-template-columns: 1fr; }
           .tec-ft-strip { grid-template-columns: repeat(2,1fr); padding: 28px 6%; }
+          .tec-ft-brand { text-align: left; }
+          .tec-ft-brand > div { text-align: left; }
+          .tec-ft-logo { text-align: left; }
         }
       `}</style>
 
       <footer className="tec-ft">
 
-        
+
 
         {/* ── MAIN GRID ── */}
         <div className="tec-ft-main">
@@ -260,11 +254,7 @@ export default function Footer() {
           <div className="tec-ft-brand">
             <div>
               <div className="tec-ft-logo">
-                <div className="tec-ft-logo-icon">📖</div>
-                <div className="tec-ft-logo-text">
-                  The English Center
-                  <span>Speak · Learn · Succeed</span>
-                </div>
+                <Image src="/logo_landscape.png" alt="The English Center Logo" width={180} height={52} style={{ height: '52px', width: 'auto', objectFit: 'contain' }} />
               </div>
               <p className="tec-ft-tagline">
                 Bharat's most trusted English coaching institute.
@@ -301,17 +291,6 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* ── NEWSLETTER ── */}
-        <div className="tec-ft-nl">
-          <div>
-            <div className="tec-ft-nl-title">Get <span>Free Tips</span> in Your Inbox ✉️</div>
-            <div className="tec-ft-nl-sub">Weekly English tips, new batch alerts and exclusive offers.</div>
-          </div>
-          <div className="tec-ft-nl-form">
-            <input type="email" className="tec-ft-nl-input" placeholder="Enter your email address" />
-            <button className="tec-ft-nl-btn">Subscribe →</button>
-          </div>
-        </div>
 
         {/* ── BOTTOM BAR ── */}
         <div className="tec-ft-bottom">
@@ -319,7 +298,7 @@ export default function Footer() {
             © 2025 <strong>The English Center</strong>. All rights reserved.
           </div>
           <div className="tec-ft-bottom-links">
-            {["Privacy Policy","Terms of Service","Refund Policy","Sitemap"].map(l => (
+            {["Privacy Policy", "Terms of Service", "Refund Policy", "Sitemap"].map(l => (
               <a key={l} href="#">{l}</a>
             ))}
           </div>

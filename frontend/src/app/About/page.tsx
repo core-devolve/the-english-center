@@ -1,4 +1,6 @@
 "use client";
+import teacher from "../../../public/teacher.png";
+import Image from "next/image";
 
 export default function AboutUs() {
   return (
@@ -126,7 +128,7 @@ export default function AboutUs() {
         }
         .ab-logo-icon {
           width: 50px; height: 50px; border-radius: 13px; flex-shrink: 0;
-          background: linear-gradient(135deg, #4f46e5, #7c3aed);
+          
           display: flex; align-items: center; justify-content: center;
           font-size: 24px;
           box-shadow: 0 4px 14px rgba(79,70,229,0.3);
@@ -159,13 +161,7 @@ export default function AboutUs() {
           position: absolute; bottom: 0; left: 0; right: 0; height: 45%;
           background: linear-gradient(to top, rgba(15,12,41,0.65), transparent);
         }
-        .ab-photo-avatar { font-size: 96px; filter: drop-shadow(0 6px 20px rgba(0,0,0,0.3)); }
-        .ab-photo-label {
-          position: absolute; bottom: 14px; left: 0; right: 0; z-index: 1;
-          text-align: center; font-size: 10px; font-weight: 600;
-          color: rgba(255,255,255,0.6); letter-spacing: 1.2px; text-transform: uppercase;
-          font-family: 'Space Grotesk', sans-serif;
-        }
+
 
         .ab-instructor-info { padding: 22px 22px 24px; }
         .ab-instructor-name {
@@ -370,7 +366,14 @@ export default function AboutUs() {
           {/* LEFT */}
           <div className="ab-instructor-col">
             <div className="ab-logo-card">
-              <div className="ab-logo-icon">📖</div>
+              <div className="ab-logo-icon">
+                <Image 
+                src="/logo_icon.png"
+                alt="Logo"
+                width={50}
+                height={50}
+                />
+              </div>
               <div>
                 <div className="ab-logo-name">The English<span>Center</span></div>
                 <div className="ab-logo-sub">India&apos;s Trusted English Platform</div>
@@ -379,8 +382,12 @@ export default function AboutUs() {
 
             <div className="ab-instructor-card">
               <div className="ab-photo-wrap">
-                <span className="ab-photo-avatar">👩‍🏫</span>
-                <span className="ab-photo-label">Replace with instructor photo</span>
+                <Image
+                  src={teacher}
+                  alt="Mrs. Anjali Chatterjee – Lead Instructor"
+                  fill
+                  style={{ objectFit: "cover", objectPosition: "top center" }}
+                />
               </div>
               <div className="ab-instructor-info">
                 <div className="ab-instructor-name">Mrs. Anjali Chatterjee</div>
@@ -436,7 +443,7 @@ export default function AboutUs() {
             <div className="ab-stats">
               {[
                 { num: "10+", lbl: "Years of Experience" },
-                { num: "5000+", lbl: "Students Trained" },
+                { num: "100+", lbl: "Students Trained" },
                 { num: "97%", lbl: "Success Rate" },
               ].map((s, i) => (
                 <div key={i} className="ab-stat-box">

@@ -5,7 +5,6 @@ import TrustSection from "@/components/TrustSection";
 import FeaturesSection from "@/components/FeaturesSection";
 
 
-import SuccessStories from "@/components/SuccessStories";
 import StudentStories from "@/components/Studentstories";
 
 export default function Home() {
@@ -16,7 +15,6 @@ export default function Home() {
       <MarqueeBanner />
       <TrustSection />
       <FeaturesSection />
-      <SuccessStories /> 
       <StudentStories />
       
      

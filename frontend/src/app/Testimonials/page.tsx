@@ -1,7 +1,7 @@
 "use client";
 
 import StudentStories from "@/components/Studentstories";
-import SuccessStories from "@/components/SuccessStories";
+
 // import StudentStories from "@/components/StudentStories";
 
 export default function TestimonialsPage() {
@@ -174,10 +174,9 @@ export default function TestimonialsPage() {
 
             <div className="tp-hero-stats">
               {[
-                ["5,000+", "Students Trained"],
+                ["100+", "Students Trained"],
                 ["97%",    "Success Rate"],
                 ["10+",    "Years of Excellence"],
-                ["500+",   "First Attempters"],
               ].map(([num, lbl]) => (
                 <div key={lbl} style={{ textAlign: "center" }}>
                   <span className="tp-hero-stat-num">{num}</span>
@@ -188,26 +187,11 @@ export default function TestimonialsPage() {
           </div>
         </div>
 
-        {/* ── SECTION 1 LABEL ── */}
-        <div className="tp-section-label">
-          <div className="tp-section-eyebrow">Hall of Fame</div>
-          <h2 className="tp-section-heading">
-            First Attempt <span>Success Stories</span>
-          </h2>
-        </div>
+        
 
         {/* ── SUCCESS STORIES CAROUSEL ── */}
-        <SuccessStories />
 
-        <div className="tp-divider" />
-
-        {/* ── SECTION 2 LABEL ── */}
-        <div className="tp-section-label">
-          <div className="tp-section-eyebrow">Student Voices</div>
-          <h2 className="tp-section-heading">
-            Hear From Our <span>Students</span>
-          </h2>
-        </div>
+    
 
         {/* ── STUDENT VIDEO STORIES ── */}
         <StudentStories />

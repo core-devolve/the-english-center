@@ -282,7 +282,7 @@ export default function GalleryPage() {
               that make SpeakEdge special.
             </p>
             <div className="gp-hero-stats">
-              {[["50+","Events Hosted"],["500+","Photos"],["32+","Batches"],["5000+","Students"]].map(([n,l]) => (
+              {[["5+","Events Hosted"],["50+","Photos"],["12+","Batches"],["100+","Students"]].map(([n,l]) => (
                 <div key={l} style={{ textAlign: "center" }}>
                   <span className="gp-stat-num">{n}</span>
                   <span className="gp-stat-lbl">{l}</span>
