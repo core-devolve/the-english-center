@@ -178,13 +178,13 @@ export default function Navbar() {
         }
 
         .logo-circle {
-          width: 38px; height: 38px;
+          width: 50px; height: 50px;
           border-radius: 50%;
-          background: rgba(255,255,255,0.18);
-          border: 1px solid rgba(255,255,255,0.32);
+          
+         
           display: flex; align-items: center; justify-content: center;
           backdrop-filter: blur(6px);
-          box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+          
           transition: background 0.25s, transform 0.25s;
           flex-shrink: 0;
         }
@@ -193,8 +193,8 @@ export default function Navbar() {
           text-decoration: none; min-width: 0;
         }
         .logo-wrap:hover .logo-circle {
-          background: rgba(255,255,255,0.28);
-          transform: scale(1.07);
+          
+          
         }
 
         /* Always show logo text on ALL screen sizes */
@@ -238,7 +238,7 @@ export default function Navbar() {
                 fontFamily: "'Poppins', sans-serif",
                 fontWeight: 700,
                 fontSize: "14px",
-                color: "#fff",
+                color: "#ffffffff",
                 margin: 0,
                 letterSpacing: "-0.2px",
                 whiteSpace: "nowrap",

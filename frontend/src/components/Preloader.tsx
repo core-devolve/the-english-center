@@ -62,7 +62,7 @@ export default function Preloader() {
 
           {/* Book / graduation cap icon inside ring */}
           <div className="preloader-icon">
-           <Image src="/logo_icon.png" alt="Logo" width={40} height={40} />
+           <Image src="/logo_icon.png" alt="Logo" width={80} height={80} />
           </div>
         </div>
 
