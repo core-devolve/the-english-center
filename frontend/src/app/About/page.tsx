@@ -6,475 +6,604 @@ export default function AboutUs() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Outfit:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,600;1,600&display=swap');
 
         .ab-root, .ab-root *, .ab-root *::before, .ab-root *::after {
-          box-sizing: border-box;
-          margin: 0;
-          padding: 0;
+          box-sizing: border-box; margin: 0; padding: 0;
         }
-
         .ab-root {
-          font-family: 'DM Sans', sans-serif;
-          background: #f8f7ff;
+          font-family: 'Outfit', sans-serif;
+          background: #faf8f3;
           min-height: 100vh;
+          --navy: #0d1b3e;
+          --navy2: #112050;
+          --gold: #c9a84c;
+          --gold-light: #e8c97a;
+          --cream: #faf8f3;
+          --cream-2: #f2ede3;
+          --ink: #1a1a2e;
+          --muted: #7a7264;
         }
 
-        /* ── HERO BANNER ── */
+        /* ═══════════════════════════════
+           HERO
+        ═══════════════════════════════ */
         .ab-hero {
-          background: linear-gradient(135deg, #0f0c29 0%, #1e1b4b 45%, #302b63 100%);
-          padding: 90px 8% 80px;
+          min-height: 88vh;
+          background: var(--navy);
+          display: grid;
+          grid-template-columns: 55% 45%;
           position: relative;
           overflow: hidden;
-          text-align: center;
+          align-items: end;
         }
         .ab-hero::before {
           content: '';
-          position: absolute; inset: 0;
+          position: absolute; inset: 0; z-index: 0; pointer-events: none;
           background-image:
-            radial-gradient(ellipse at 25% 60%, rgba(139,92,246,0.15) 0%, transparent 55%),
-            radial-gradient(ellipse at 80% 20%, rgba(251,191,36,0.08) 0%, transparent 50%);
-          pointer-events: none;
+            linear-gradient(rgba(201,168,76,0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(201,168,76,0.05) 1px, transparent 1px);
+          background-size: 64px 64px;
+        }
+        .ab-hero-glow {
+          position: absolute;
+          right: 0; bottom: 0;
+          width: 55%; height: 110%;
+          background: radial-gradient(ellipse at 60% 90%, rgba(201,168,76,0.12) 0%, rgba(17,32,80,0.5) 55%, transparent 75%);
+          pointer-events: none; z-index: 1;
+        }
+        .ab-hero-divider {
+          position: absolute;
+          left: 55%; top: 8%; bottom: 0;
+          width: 1px;
+          background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.18) 30%, rgba(201,168,76,0.18) 80%, transparent);
+          z-index: 2; pointer-events: none;
         }
 
-        /* grid texture */
-        .ab-hero::after {
-          content: '';
-          position: absolute; inset: 0;
-          background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                            linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-          background-size: 40px 40px;
-          pointer-events: none;
+        /* LEFT content */
+        .ab-hero-left {
+          padding: 80px 5% 80px 8%;
+          display: flex; flex-direction: column; justify-content: center;
+          position: relative; z-index: 3;
         }
-
-        .ab-hero-inner { position: relative; z-index: 2; }
-
-        .ab-hero-badge {
-          display: inline-flex; align-items: center; gap: 7px;
-          background: rgba(139,92,246,0.15);
-          border: 1px solid rgba(139,92,246,0.35);
-          color: #c4b5fd;
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 10px; font-weight: 600;
-          padding: 5px 14px; border-radius: 20px;
-          text-transform: uppercase; letter-spacing: 2px;
-          margin-bottom: 24px;
+        .ab-badge {
+          display: inline-flex; align-items: center; gap: 10px;
+          border: 1px solid rgba(201,168,76,0.35);
+          padding: 7px 18px; border-radius: 3px;
+          margin-bottom: 40px; width: fit-content;
         }
-        .ab-hero-dot {
+        .ab-badge-dot {
           width: 6px; height: 6px; border-radius: 50%;
-          background: #a78bfa;
-          animation: abPulse 2s ease-in-out infinite;
+          background: var(--gold);
+          animation: abPulse 2.2s ease-in-out infinite;
+        }
+        .ab-badge span {
+          font-size: 10px; font-weight: 600; color: var(--gold);
+          letter-spacing: 3px; text-transform: uppercase;
         }
         .ab-hero-title {
-          font-family: 'Fraunces', serif;
-          font-size: clamp(40px, 5.5vw, 72px);
+          font-family: 'Playfair Display', serif;
+          font-size: clamp(40px, 4.5vw, 68px);
           font-weight: 900;
-          color: #ffffff;
-          line-height: 1.05;
-          margin-bottom: 20px;
-          letter-spacing: -1px;
+          color: #fff;
+          line-height: 1.06;
+          margin-bottom: 26px;
+          letter-spacing: -1.5px;
         }
-        .ab-hero-title .yellow {
-          color: #fbbf24;
-          font-style: italic;
+        .ab-hero-title em {
+          font-style: italic; color: var(--gold); display: block;
         }
-        .ab-hero-title .underline-yellow {
-          position: relative; display: inline-block;
+        .ab-hero-desc {
+          font-size: 15px; color: rgba(255,255,255,0.46);
+          line-height: 1.85; max-width: 440px;
+          margin-bottom: 52px; font-weight: 300;
         }
-        .ab-hero-title .underline-yellow::after {
-          content: '';
-          position: absolute; left: 0; bottom: -4px;
-          width: 100%; height: 3px;
-          background: linear-gradient(90deg, #fbbf24, #f59e0b);
-          border-radius: 2px;
+        .ab-stats-row { display: flex; align-items: stretch; }
+        .ab-stat {
+          padding-right: 32px; margin-right: 32px;
+          border-right: 1px solid rgba(255,255,255,0.1);
         }
-        .ab-hero-sub {
-          font-family: 'DM Sans', sans-serif;
-          font-size: 15px; color: rgba(255,255,255,0.55);
-          line-height: 1.75; max-width: 480px; margin: 0 auto;
+        .ab-stat:last-child { border-right: none; padding-right: 0; margin-right: 0; }
+        .ab-stat-num {
+          font-family: 'Playfair Display', serif;
+          font-size: 38px; font-weight: 900;
+          color: var(--gold); line-height: 1;
+          display: block; margin-bottom: 6px; letter-spacing: -1px;
+        }
+        .ab-stat-lbl {
+          font-size: 11px; color: rgba(255,255,255,0.36); font-weight: 500;
         }
 
-        /* Decorative blobs */
-        .ab-blob {
-          position: absolute; border-radius: 50%;
-          filter: blur(60px); opacity: 0.12; pointer-events: none;
+        /* RIGHT: cutout photo */
+        .ab-hero-right {
+          position: relative; z-index: 3;
+          display: flex; align-items: flex-end; justify-content: center;
+          height: 100%; padding-bottom: 0;
         }
-        .ab-blob-1 { width: 280px; height: 280px; background: #7c3aed; top: -80px; right: -40px; }
-        .ab-blob-2 { width: 200px; height: 200px; background: #4f46e5; bottom: -60px; left: -30px; }
+        .ab-hero-arc {
+          position: absolute; bottom: -30px; left: 50%;
+          transform: translateX(-50%);
+          width: 440px; height: 440px; border-radius: 50%;
+          background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 65%);
+          border: 1px solid rgba(201,168,76,0.1);
+          pointer-events: none;
+        }
+        .ab-hero-arc-2 {
+          position: absolute; bottom: -70px; left: 50%;
+          transform: translateX(-50%);
+          width: 300px; height: 300px; border-radius: 50%;
+          border: 1px solid rgba(201,168,76,0.07);
+          pointer-events: none;
+        }
+        /* The teacher image — natural size, no fill */
+        .ab-teacher-img {
+          position: relative !important;
+          width: auto !important;
+          max-width: 90% !important;
+          height: auto !important;
+          max-height: 80vh;
+          object-fit: contain !important;
+          object-position: bottom center !important;
+          display: block;
+          filter: drop-shadow(-8px 0 40px rgba(201,168,76,0.08));
+        }
+        .ab-name-plate {
+          position: absolute;
+          bottom: 28px; left: 16px;
+          background: rgba(13,27,62,0.88);
+          backdrop-filter: blur(14px);
+          border: 1px solid rgba(201,168,76,0.25);
+          border-radius: 10px; padding: 12px 18px;
+          box-shadow: 0 8px 32px rgba(0,0,0,0.28);
+        }
+        .ab-name-plate-name {
+          font-family: 'Playfair Display', serif;
+          font-size: 15px; font-weight: 700; color: #fff;
+        }
+        .ab-name-plate-role {
+          font-size: 10px; color: var(--gold);
+          font-weight: 600; letter-spacing: 1.5px;
+          text-transform: uppercase; margin-top: 3px;
+        }
 
-        /* ── MAIN CONTENT ── */
+        /* ═══════════════════════════════
+           BODY
+        ═══════════════════════════════ */
         .ab-body {
-          padding: 64px 8% 80px;
+          padding: 96px 8%;
           display: grid;
-          grid-template-columns: 1fr 1.15fr;
-          gap: 56px;
-          align-items: start;
+          grid-template-columns: 1.1fr 1fr;
+          gap: 80px; align-items: start;
+          background: var(--cream);
         }
+        .ab-story-col { display: flex; flex-direction: column; gap: 36px; }
 
-        /* ── LEFT COL ── */
-        .ab-instructor-col {
-          display: flex; flex-direction: column; gap: 18px;
-          position: sticky; top: 24px;
+        .ab-section-label {
+          display: flex; align-items: center; gap: 12px;
+          font-size: 10px; font-weight: 700; color: var(--gold);
+          letter-spacing: 3px; text-transform: uppercase;
         }
-
-        /* Logo card */
-        .ab-logo-card {
-          background: #ffffff;
-          border-radius: 18px;
-          padding: 18px 22px;
-          box-shadow: 0 4px 20px rgba(79,70,229,0.09);
-          border: 1px solid rgba(79,70,229,0.09);
-          display: flex; align-items: center; gap: 14px;
+        .ab-section-label::after {
+          content: ''; flex: 1; height: 1px;
+          background: linear-gradient(90deg, rgba(201,168,76,0.4), transparent);
         }
-        .ab-logo-icon {
-          width: 50px; height: 50px; border-radius: 13px; flex-shrink: 0;
-          
+        .ab-section-title {
+          font-family: 'Playfair Display', serif;
+          font-size: clamp(28px, 3vw, 44px);
+          font-weight: 700; color: var(--ink);
+          line-height: 1.18; letter-spacing: -0.5px;
+        }
+        .ab-section-title em { font-style: italic; color: #4a5568; }
+        .ab-story-text {
+          font-size: 15px; color: var(--muted); line-height: 1.9; font-weight: 300;
+        }
+        .ab-story-text strong { color: var(--ink); font-weight: 600; }
+        .ab-quote {
+          border-left: 3px solid var(--gold);
+          padding: 8px 0 8px 24px;
+        }
+        .ab-quote-text {
+          font-family: 'Cormorant Garamond', serif;
+          font-size: 22px; font-style: italic;
+          color: var(--ink); line-height: 1.5;
+        }
+        .ab-quote-author {
+          font-size: 11px; color: var(--gold);
+          font-weight: 600; letter-spacing: 1.5px;
+          text-transform: uppercase; margin-top: 10px;
+        }
+        .ab-pillars { display: flex; flex-direction: column; gap: 12px; }
+        .ab-pillar {
+          background: #fff;
+          border: 1px solid rgba(201,168,76,0.15);
+          border-radius: 12px; padding: 18px 20px;
+          display: grid; grid-template-columns: 44px 1fr;
+          gap: 14px; align-items: start;
+          transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+        }
+        .ab-pillar:hover {
+          border-color: rgba(201,168,76,0.45);
+          box-shadow: 0 8px 30px rgba(201,168,76,0.08);
+          transform: translateX(4px);
+        }
+        .ab-pillar-icon {
+          width: 44px; height: 44px; border-radius: 10px;
+          background: linear-gradient(135deg, #fdf8ec, #f5e8c0);
           display: flex; align-items: center; justify-content: center;
-          font-size: 24px;
-          box-shadow: 0 4px 14px rgba(79,70,229,0.3);
+          font-size: 20px; flex-shrink: 0;
         }
-        .ab-logo-name {
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 18px; font-weight: 800; color: #0f0c29;
-          letter-spacing: -0.3px;
-        }
-        .ab-logo-name span { color: #4f46e5; }
-        .ab-logo-sub {
-          font-size: 11px; color: #9ca3af; font-weight: 500; margin-top: 2px;
-        }
+        .ab-pillar-title { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+        .ab-pillar-desc  { font-size: 12.5px; color: var(--muted); line-height: 1.65; }
 
-        /* Instructor card */
-        .ab-instructor-card {
-          background: #ffffff;
-          border-radius: 20px; overflow: hidden;
-          box-shadow: 0 8px 36px rgba(79,70,229,0.11);
-          border: 1px solid rgba(79,70,229,0.08);
+        /* Right cards */
+        .ab-cards-col {
+          display: flex; flex-direction: column; gap: 16px;
+          position: sticky; top: 30px;
         }
-        .ab-photo-wrap {
-          width: 100%; aspect-ratio: 4/3;
-          background: linear-gradient(135deg, #1e1b4b 0%, #4f46e5 60%, #7c3aed 100%);
-          display: flex; align-items: center; justify-content: center;
-          position: relative; overflow: hidden;
+        .ab-profile-card {
+          background: var(--navy);
+          border-radius: 16px; overflow: hidden;
+          box-shadow: 0 20px 60px rgba(13,27,62,0.18);
+          border: 1px solid rgba(201,168,76,0.12);
         }
-        .ab-photo-wrap::after {
-          content: '';
-          position: absolute; bottom: 0; left: 0; right: 0; height: 45%;
-          background: linear-gradient(to top, rgba(15,12,41,0.65), transparent);
+        .ab-profile-header {
+          padding: 28px 28px 20px;
+          border-bottom: 1px solid rgba(255,255,255,0.06);
+          display: flex; gap: 16px; align-items: center;
         }
-
-
-        .ab-instructor-info { padding: 22px 22px 24px; }
-        .ab-instructor-name {
-          font-family: 'Fraunces', serif;
-          font-size: 20px; font-weight: 700; color: #0f0c29; margin-bottom: 3px;
-          letter-spacing: -0.3px;
+        .ab-profile-avatar {
+          width: 60px; height: 60px; border-radius: 50%;
+          border: 2px solid rgba(201,168,76,0.35);
+          overflow: hidden; position: relative; flex-shrink: 0;
+          background: var(--navy2);
         }
-        .ab-instructor-role {
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 11px; color: #6d28d9; font-weight: 600;
-          text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 13px;
+        .ab-profile-name {
+          font-family: 'Playfair Display', serif;
+          font-size: 17px; font-weight: 700; color: #fff;
         }
-        .ab-instructor-bio {
-          font-size: 13px; color: #6b7280; line-height: 1.72; margin-bottom: 16px;
+        .ab-profile-role {
+          font-size: 10px; color: var(--gold);
+          text-transform: uppercase; letter-spacing: 1.5px;
+          font-weight: 600; margin-top: 4px;
+        }
+        .ab-profile-body { padding: 20px 28px 26px; }
+        .ab-profile-bio {
+          font-size: 13px; color: rgba(255,255,255,0.5);
+          line-height: 1.78; margin-bottom: 18px;
         }
         .ab-tags { display: flex; flex-wrap: wrap; gap: 6px; }
         .ab-tag {
-          background: #f3f0ff; color: #5b21b6;
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 10px; font-weight: 700;
-          padding: 4px 10px; border-radius: 20px;
-          letter-spacing: 0.3px;
+          background: rgba(201,168,76,0.1);
+          border: 1px solid rgba(201,168,76,0.22);
+          color: var(--gold-light);
+          font-size: 10px; font-weight: 600;
+          padding: 4px 11px; border-radius: 3px;
+          letter-spacing: 0.5px; text-transform: uppercase;
         }
+        .ab-cta-row { display: flex; gap: 10px; }
+        .ab-btn-primary {
+          flex: 1; background: var(--gold); color: var(--navy);
+          border: none; border-radius: 8px; padding: 14px 20px;
+          font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700;
+          cursor: pointer; letter-spacing: 0.3px;
+          box-shadow: 0 6px 20px rgba(201,168,76,0.3);
+          transition: all 0.22s;
+        }
+        .ab-btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+        .ab-btn-ghost {
+          flex: 1; background: transparent; color: var(--ink);
+          border: 1.5px solid rgba(13,27,62,0.18); border-radius: 8px;
+          padding: 14px 20px; font-family: 'Outfit', sans-serif;
+          font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.22s;
+        }
+        .ab-btn-ghost:hover { border-color: var(--gold); color: #a07830; }
 
-        /* ── RIGHT COL ── */
-        .ab-content-col { display: flex; flex-direction: column; gap: 30px; }
+        /* ═══════════════════════════════
+           FEATURES
+        ═══════════════════════════════ */
+        .ab-features {
+          background: var(--cream-2);
+          border-top: 1px solid rgba(201,168,76,0.12);
+          padding: 72px 8%;
+        }
+        .ab-features-title {
+          font-family: 'Playfair Display', serif;
+          font-size: 26px; font-weight: 700; color: var(--ink);
+          letter-spacing: -0.3px; margin-bottom: 36px;
+        }
+        .ab-features-title em { font-style: italic; color: #4a5568; }
+        .ab-features-grid {
+          display: grid; grid-template-columns: repeat(4, 1fr);
+          border: 1px solid rgba(201,168,76,0.15);
+          border-radius: 16px; overflow: hidden;
+          gap: 1px; background: rgba(201,168,76,0.1);
+        }
+        .ab-feature {
+          background: var(--cream-2); padding: 32px 24px;
+          display: flex; flex-direction: column; gap: 12px;
+          transition: background 0.25s;
+        }
+        .ab-feature:hover { background: #fff; }
+        .ab-feature-icon { font-size: 28px; }
+        .ab-feature-title {
+          font-family: 'Playfair Display', serif;
+          font-size: 16px; font-weight: 700; color: var(--ink);
+        }
+        .ab-feature-desc { font-size: 13px; color: var(--muted); line-height: 1.7; }
 
-        .ab-eyebrow {
-          display: inline-flex; align-items: center; gap: 8px;
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 10px; font-weight: 700; color: #4f46e5;
-          text-transform: uppercase; letter-spacing: 2px;
-          margin-bottom: 10px;
-        }
-        .ab-eyebrow::before {
-          content: '';
-          width: 22px; height: 2px;
-          background: linear-gradient(90deg, #4f46e5, #7c3aed);
-          border-radius: 2px;
-        }
-
-        .ab-main-heading {
-          font-family: 'Fraunces', serif;
-          font-size: clamp(24px, 3vw, 38px);
-          font-weight: 700; color: #0f0c29;
-          line-height: 1.2; margin-bottom: 10px;
-          letter-spacing: -0.5px;
-        }
-        .ab-main-heading span { color: #4f46e5; font-style: italic; }
-
-        .ab-intro-text {
-          font-size: 14px; color: #6b7280; line-height: 1.78;
-        }
-
-        /* Point cards */
-        .ab-points { display: flex; flex-direction: column; gap: 12px; }
-        .ab-point {
-          background: #ffffff;
-          border-radius: 14px; padding: 16px 18px;
-          display: flex; gap: 14px; align-items: flex-start;
-          box-shadow: 0 2px 12px rgba(0,0,0,0.05);
-          border: 1px solid #f0eeff;
-          transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-        }
-        .ab-point:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 28px rgba(79,70,229,0.11);
-          border-color: #c4b5fd;
-        }
-        .ab-point-icon {
-          width: 40px; height: 40px; border-radius: 11px; flex-shrink: 0;
-          background: linear-gradient(135deg, #ede9fe, #c4b5fd);
-          display: flex; align-items: center; justify-content: center;
-          font-size: 19px;
-        }
-        .ab-point-title {
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 14px; font-weight: 700; color: #0f0c29;
-          margin-bottom: 3px; letter-spacing: -0.1px;
-        }
-        .ab-point-desc { font-size: 12.5px; color: #6b7280; line-height: 1.65; }
-
-        /* Stats */
-        .ab-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-        .ab-stat-box {
-          background: linear-gradient(135deg, #0f0c29 0%, #312e81 100%);
-          border-radius: 14px; padding: 18px 14px; text-align: center;
-          box-shadow: 0 6px 20px rgba(79,70,229,0.22);
-          border: 1px solid rgba(139,92,246,0.2);
+        /* ═══════════════════════════════
+           FOOTER BANNER
+        ═══════════════════════════════ */
+        .ab-footer-banner {
+          background: var(--navy);
+          padding: 80px 8%;
+          display: grid; grid-template-columns: 1fr 1fr;
+          gap: 60px; align-items: center;
           position: relative; overflow: hidden;
         }
-        .ab-stat-box::before {
-          content: '';
-          position: absolute; top: 0; left: 0; right: 0; height: 2px;
-          background: linear-gradient(90deg, #818cf8, #a78bfa);
+        .ab-footer-banner::before {
+          content: ''; position: absolute; inset: 0; pointer-events: none;
+          background-image:
+            linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+          background-size: 64px 64px;
         }
-        .ab-stat-num {
-          font-family: 'Fraunces', serif;
-          font-size: 28px; font-weight: 900; color: #ffffff;
-          display: block; letter-spacing: -0.5px;
+        .ab-footer-left { position: relative; z-index: 1; }
+        .ab-footer-label {
+          font-size: 10px; font-weight: 700; color: var(--gold);
+          letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px;
         }
-        .ab-stat-lbl {
-          font-family: 'DM Sans', sans-serif;
-          font-size: 11px; color: rgba(255,255,255,0.55);
-          font-weight: 500; margin-top: 4px; display: block;
+        .ab-footer-title {
+          font-family: 'Playfair Display', serif;
+          font-size: clamp(26px, 3vw, 40px);
+          font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 16px;
         }
+        .ab-footer-title em { font-style: italic; color: var(--gold); }
+        .ab-footer-desc {
+          font-size: 14px; color: rgba(255,255,255,0.43);
+          line-height: 1.8; margin-bottom: 28px;
+        }
+        .ab-footer-btn {
+          display: inline-block;
+          background: var(--gold); color: var(--navy);
+          border: none; border-radius: 8px;
+          padding: 14px 32px;
+          font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 700;
+          cursor: pointer; letter-spacing: 0.3px;
+          box-shadow: 0 6px 24px rgba(201,168,76,0.35);
+          transition: all 0.22s;
+        }
+        .ab-footer-btn:hover { background: var(--gold-light); transform: translateY(-2px); }
+        .ab-footer-right {
+          position: relative; z-index: 1;
+          display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+        }
+        .ab-fchip {
+          background: rgba(255,255,255,0.04);
+          border: 1px solid rgba(201,168,76,0.18);
+          border-radius: 12px; padding: 20px 18px;
+          display: flex; flex-direction: column; gap: 8px;
+          transition: background 0.22s, border-color 0.22s;
+        }
+        .ab-fchip:hover {
+          background: rgba(201,168,76,0.07);
+          border-color: rgba(201,168,76,0.35);
+        }
+        .ab-fchip-icon { font-size: 24px; }
+        .ab-fchip-label { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.8); }
+        .ab-fchip-sub   { font-size: 11px; color: rgba(255,255,255,0.35); }
 
-        /* CTAs */
-        .ab-cta-row { display: flex; gap: 10px; flex-wrap: wrap; }
-        .ab-cta-primary {
-          background: linear-gradient(135deg, #4f46e5, #6d28d9);
-          color: #fff; border: none;
-          padding: 12px 26px; border-radius: 10px;
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 13px; font-weight: 700;
-          cursor: pointer; letter-spacing: 0.2px;
-          box-shadow: 0 5px 18px rgba(79,70,229,0.38);
-          transition: all 0.2s ease;
-        }
-        .ab-cta-primary:hover { opacity: 0.9; transform: translateY(-2px); }
-        .ab-cta-secondary {
-          background: transparent; color: #4f46e5;
-          border: 2px solid #c4b5fd;
-          padding: 12px 26px; border-radius: 10px;
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 13px; font-weight: 700;
-          cursor: pointer; transition: all 0.2s ease;
-        }
-        .ab-cta-secondary:hover { background: #f3f0ff; border-color: #4f46e5; }
-
-        /* ── ONLINE STRIP ── */
-        .ab-online-strip {
-          background: linear-gradient(135deg, #fffbeb, #fef3c7);
-          border-top: 1px solid rgba(251,191,36,0.25);
-          padding: 40px 8%;
-          display: flex; gap: 40px; align-items: center; flex-wrap: wrap;
-        }
-        .ab-online-left { flex: 1; min-width: 220px; }
-        .ab-online-title {
-          font-family: 'Fraunces', serif;
-          font-size: 22px; font-weight: 700; color: #1e1b4b;
-          margin-bottom: 8px; letter-spacing: -0.3px;
-        }
-        .ab-online-title span { color: #d97706; font-style: italic; }
-        .ab-online-desc { font-size: 13px; color: #78350f; line-height: 1.68; }
-        .ab-online-right { display: flex; gap: 12px; flex-wrap: wrap; }
-        .ab-online-chip {
-          background: #ffffff;
-          border: 1px solid rgba(217,119,6,0.2);
-          border-radius: 10px; padding: 9px 14px;
-          display: flex; align-items: center; gap: 7px;
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 12px; font-weight: 600; color: #92400e;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        /* ── ANIMATIONS ── */
+        /* ═══ ANIMATIONS ═══ */
         @keyframes abPulse {
           0%, 100% { opacity: 1; transform: scale(1); }
-          50%       { opacity: 0.5; transform: scale(1.4); }
+          50%       { opacity: 0.4; transform: scale(1.5); }
         }
 
-        /* ── RESPONSIVE ── */
-        @media (max-width: 900px) {
-          .ab-body { grid-template-columns: 1fr; gap: 36px; padding: 40px 6% 60px; }
-          .ab-instructor-col { position: static; }
-          .ab-stats { grid-template-columns: repeat(3, 1fr); }
+        /* ═══ RESPONSIVE ═══ */
+        @media (max-width: 860px) {
+          .ab-hero { grid-template-columns: 1fr; align-items: start; min-height: auto; }
+          .ab-hero-right { height: 380px; }
+          .ab-hero-divider { display: none; }
+          .ab-teacher-img { max-height: 380px !important; }
+          .ab-body { grid-template-columns: 1fr; gap: 40px; padding: 60px 6%; }
+          .ab-cards-col { position: static; }
+          .ab-features-grid { grid-template-columns: repeat(2, 1fr); }
+          .ab-footer-banner { grid-template-columns: 1fr; gap: 36px; }
+          .ab-footer-right { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 560px) {
-          .ab-hero { padding: 52px 6% 56px; }
-          .ab-stats { grid-template-columns: 1fr 1fr; }
-          .ab-online-strip { flex-direction: column; gap: 24px; }
+          .ab-hero-left { padding: 52px 6% 40px; }
+          .ab-stats-row { flex-wrap: wrap; gap: 20px; }
+          .ab-stat { border-right: none; padding-right: 0; margin-right: 0; }
+          .ab-features-grid { grid-template-columns: 1fr; }
+          .ab-cta-row { flex-direction: column; }
+          .ab-footer-right { grid-template-columns: 1fr; }
         }
       `}</style>
 
       <div className="ab-root">
 
-        {/* ── HERO ── */}
-        <div className="ab-hero">
-          <div className="ab-blob ab-blob-1" />
-          <div className="ab-blob ab-blob-2" />
-          <div className="ab-hero-inner">
-            <div className="ab-hero-badge">
-              <span className="ab-hero-dot" />
-              The English Centre
-            </div>
-            <h1 className="ab-hero-title">
-              About{" "}
-              <span className="yellow underline-yellow">The English</span>
-              <br />Center
-            </h1>
-            <p className="ab-hero-sub">
-              Transforming the way India learns English — one student at a time,
-              with heart, expertise, and unwavering dedication.
-            </p>
-          </div>
-        </div>
-
-        {/* ── BODY ── */}
-        <div className="ab-body">
+        {/* ═══ HERO ═══ */}
+        <section className="ab-hero">
+          <div className="ab-hero-glow" />
+          <div className="ab-hero-divider" />
 
           {/* LEFT */}
-          <div className="ab-instructor-col">
-            <div className="ab-logo-card">
-              <div className="ab-logo-icon">
-                <Image 
-                src="/logo_icon.png"
-                alt="Logo"
-                width={50}
-                height={50}
-                />
-              </div>
-              <div>
-                <div className="ab-logo-name">The English<span>Center</span></div>
-                <div className="ab-logo-sub">India&apos;s Trusted English Platform</div>
-              </div>
+          <div className="ab-hero-left">
+            <div className="ab-badge">
+              <span className="ab-badge-dot" />
+              <span>The English Centre</span>
             </div>
+            <h1 className="ab-hero-title">
+              Where Confidence
+              <em>Finds Its Voice.</em>
+            </h1>
+            <p className="ab-hero-desc">
+              India&apos;s most trusted English language coaching platform — helping
+              students, professionals, and dreamers communicate with clarity,
+              conviction, and purpose.
+            </p>
+            <div className="ab-stats-row">
+              {[
+                { num: "10+",  lbl: "Years of Excellence" },
+                { num: "100+", lbl: "Students Trained" },
+                { num: "97%",  lbl: "Success Rate" },
+              ].map((s, i) => (
+                <div key={i} className="ab-stat">
+                  <span className="ab-stat-num">{s.num}</span>
+                  <span className="ab-stat-lbl">{s.lbl}</span>
+                </div>
+              ))}
+            </div>
+          </div>
 
-            <div className="ab-instructor-card">
-              <div className="ab-photo-wrap">
-                <Image
-                  src={teacher}
-                  alt="Mrs. Anjali Chatterjee – Lead Instructor"
-                  fill
-                  style={{ objectFit: "cover", objectPosition: "top center" }}
-                />
+          {/* RIGHT — cutout image, natural dimensions, bottom-aligned */}
+          <div className="ab-hero-right">
+            <div className="ab-hero-arc" />
+            <div className="ab-hero-arc-2" />
+            <Image
+              src={teacher}
+              alt="Mrs. Anjali Chatterjee – Lead Instructor & Founder"
+              className="ab-teacher-img"
+              priority
+            />
+            <div className="ab-name-plate">
+              <div className="ab-name-plate-name">Mrs. Anjali Chatterjee</div>
+              <div className="ab-name-plate-role">Lead Instructor &amp; Founder</div>
+            </div>
+          </div>
+        </section>
+
+        {/* ═══ BODY ═══ */}
+        <section className="ab-body">
+          <div className="ab-story-col">
+            <div className="ab-section-label">Our Story</div>
+            <h2 className="ab-section-title">
+              A Language Institute Built on<br />
+              <em>Passion &amp; Purpose</em>
+            </h2>
+            <p className="ab-story-text">
+              <strong>The English Centre</strong> was founded with a single mission: to bridge the
+              gap between knowing English and truly <strong>owning it</strong>. We believe language
+              is not just a skill — it&apos;s a superpower that opens doors, builds careers, and
+              transforms lives.
+            </p>
+            <div className="ab-quote">
+              <div className="ab-quote-text">
+                &ldquo;We don&apos;t just teach grammar — we build the confidence to use it.&rdquo;
               </div>
-              <div className="ab-instructor-info">
-                <div className="ab-instructor-name">Mrs. Anjali Chatterjee</div>
-                <div className="ab-instructor-role">Lead Instructor &amp; Founder</div>
-                <p className="ab-instructor-bio">
-                  With over a decade of experience in English language training,
-                  Mrs. Chatterjee has helped thousands of students master spoken English,
-                  ace IELTS, and unlock career opportunities through confident communication.
+              <div className="ab-quote-author">— Mrs. Anjali Chatterjee, Founder</div>
+            </div>
+            <p className="ab-story-text">
+              From IELTS preparation to spoken English, vocabulary building to personality
+              development — every programme delivers <strong>real, measurable outcomes</strong>.
+              Our 100% online model means quality education reaches you wherever you are,
+              on your schedule.
+            </p>
+            <div className="ab-pillars">
+              {[
+                { icon: "🎓", title: "Comprehensive English Training", desc: "IELTS prep, vocabulary, spoken English, and personality development — every dimension covered." },
+                { icon: "👩‍🏫", title: "Expert-Led, Personally Guided",  desc: "Over a decade of expertise with one-on-one career counselling woven into every journey." },
+                { icon: "🚀", title: "Career-Focused Outcomes",          desc: "Interviews, presentations, corporate environments, global opportunities — we prepare you for all." },
+              ].map((p, i) => (
+                <div key={i} className="ab-pillar">
+                  <div className="ab-pillar-icon">{p.icon}</div>
+                  <div>
+                    <div className="ab-pillar-title">{p.title}</div>
+                    <div className="ab-pillar-desc">{p.desc}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="ab-cards-col">
+            <div className="ab-profile-card">
+              <div className="ab-profile-header">
+                <div className="ab-profile-avatar">
+                  <Image
+                    src={teacher}
+                    alt="Mrs. Anjali Chatterjee"
+                    fill
+                    sizes="60px"
+                    style={{ objectFit: "cover", objectPosition: "top center" }}
+                  />
+                </div>
+                <div>
+                  <div className="ab-profile-name">Mrs. Anjali Chatterjee</div>
+                  <div className="ab-profile-role">Lead Instructor &amp; Founder</div>
+                </div>
+              </div>
+              <div className="ab-profile-body">
+                <p className="ab-profile-bio">
+                  With over a decade of English language training, Mrs. Chatterjee has helped
+                  thousands of students master spoken English, ace IELTS, and unlock career
+                  opportunities through confident communication.
                 </p>
                 <div className="ab-tags">
-                  <span className="ab-tag">10+ Years Exp.</span>
+                  <span className="ab-tag">10+ Yrs Exp.</span>
                   <span className="ab-tag">IELTS Expert</span>
                   <span className="ab-tag">Career Counsellor</span>
                   <span className="ab-tag">Spoken English</span>
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* RIGHT */}
-          <div className="ab-content-col">
-            <div>
-              <div className="ab-eyebrow">Who We Are</div>
-              <h2 className="ab-main-heading">
-                A Language Institute Built on{" "}
-                <span>Passion &amp; Purpose</span>
-              </h2>
-              <p className="ab-intro-text">
-                SpeakEdge is a premier English language coaching centre dedicated to helping individuals
-                communicate with clarity, confidence, and professionalism. We offer programmes covering
-                IELTS preparation, vocabulary building, spoken English, and personality development —
-                all designed to unlock your true potential.
-              </p>
-            </div>
-
-            <div className="ab-points">
-              {[
-                { icon: "🎓", title: "Comprehensive English Training", desc: "From IELTS and vocabulary to spoken English and personality development — we train individuals across every dimension of the language." },
-                { icon: "👩‍🏫", title: "Expert-Led with Personal Attention", desc: "Mrs. Anjali Chatterjee brings over a decade of expertise and also offers personalised career counselling to those who need direction." },
-                { icon: "💻", title: "100% Online — Learn from Home", desc: "All our courses are conducted entirely online. No commute, no hassle — just quality learning from the comfort of your own space." },
-                { icon: "🚀", title: "Career-Focused Outcomes", desc: "We don't just teach English — we prepare you for interviews, presentations, corporate environments, and global opportunities." },
-              ].map((p, i) => (
-                <div key={i} className="ab-point">
-                  <div className="ab-point-icon">{p.icon}</div>
-                  <div>
-                    <div className="ab-point-title">{p.title}</div>
-                    <p className="ab-point-desc">{p.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="ab-stats">
-              {[
-                { num: "10+", lbl: "Years of Experience" },
-                { num: "100+", lbl: "Students Trained" },
-                { num: "97%", lbl: "Success Rate" },
-              ].map((s, i) => (
-                <div key={i} className="ab-stat-box">
-                  <span className="ab-stat-num">{s.num}</span>
-                  <span className="ab-stat-lbl">{s.lbl}</span>
-                </div>
-              ))}
-            </div>
-
             <div className="ab-cta-row">
-              <button className="ab-cta-primary">Start Learning Today →</button>
-              <button className="ab-cta-secondary">View Our Courses</button>
+              <button className="ab-btn-primary">Start Learning Today →</button>
+              <button className="ab-btn-ghost">View Courses</button>
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* ── ONLINE STRIP ── */}
-        <div className="ab-online-strip">
-          <div className="ab-online-left">
-            <div className="ab-online-title">Learn from <span>Anywhere</span> 🌐</div>
-            <p className="ab-online-desc">
-              All lessons are conducted online — take classes from your home, office, or anywhere
-              you feel comfortable. Flexible timings, live sessions, and recorded backups included.
-            </p>
-          </div>
-          <div className="ab-online-right">
-            {["📱 Mobile Friendly", "🎥 Live Sessions", "⏺️ Recorded Backups", "📅 Flexible Timing"].map((c, i) => (
-              <div key={i} className="ab-online-chip">{c}</div>
+        {/* ═══ FEATURES ═══ */}
+        <section className="ab-features">
+          <h3 className="ab-features-title">
+            Learn from <em>Anywhere</em> — On Your Terms
+          </h3>
+          <div className="ab-features-grid">
+            {[
+              { icon: "💻", title: "100% Online",       desc: "Learn from home, office, or anywhere. Zero commute, maximum quality." },
+              { icon: "🎥", title: "Live Sessions",      desc: "Real-time interactive classes with your instructor every week." },
+              { icon: "⏺️", title: "Recorded Backups",  desc: "Every session recorded so you can replay and reinforce learning." },
+              { icon: "📅", title: "Flexible Timing",   desc: "Schedule sessions around your life, not the other way around." },
+            ].map((f, i) => (
+              <div key={i} className="ab-feature">
+                <div className="ab-feature-icon">{f.icon}</div>
+                <div className="ab-feature-title">{f.title}</div>
+                <div className="ab-feature-desc">{f.desc}</div>
+              </div>
             ))}
           </div>
-        </div>
+        </section>
+
+        {/* ═══ FOOTER BANNER ═══ */}
+        <section className="ab-footer-banner">
+          <div className="ab-footer-left">
+            <div className="ab-footer-label">Ready to Begin?</div>
+            <h2 className="ab-footer-title">
+              Your Journey to <em>Confident</em><br />English Starts Here
+            </h2>
+            <p className="ab-footer-desc">
+              Join hundreds of students who&apos;ve transformed how they speak, write, and present
+              themselves to the world — with The English Centre.
+            </p>
+            <button className="ab-footer-btn">Enrol Now →</button>
+          </div>
+          <div className="ab-footer-right">
+            {[
+              { icon: "📱", label: "Mobile Friendly",     sub: "Learn on any device" },
+              { icon: "🌐", label: "Learn Anywhere",       sub: "No location limits" },
+              { icon: "🏅", label: "Certified Instructor", sub: "10+ years expertise" },
+              { icon: "💬", label: "Doubt Support",        sub: "Always available" },
+            ].map((c, i) => (
+              <div key={i} className="ab-fchip">
+                <div className="ab-fchip-icon">{c.icon}</div>
+                <div className="ab-fchip-label">{c.label}</div>
+                <div className="ab-fchip-sub">{c.sub}</div>
+              </div>
+            ))}
+          </div>
+        </section>
 
       </div>
     </>

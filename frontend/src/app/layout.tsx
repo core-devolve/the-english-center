@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Preloader from "@/components/Preloader";
+import OfferPopup from "@/components/OfferPopup";
 
 export const metadata: Metadata = {
   title: {
@@ -62,6 +63,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Preloader />
         <Navbar />
         {children}
+        <OfferPopup />
         <Footer />
       </body>
     </html>
