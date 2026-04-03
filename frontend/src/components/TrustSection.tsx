@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 
 interface Stat {
   num: string;
@@ -411,7 +412,7 @@ export default function EnglishCoachingHero() {
               ))}
             </div>
 
-            <button className="ec-cta"> <a href="/Admission"> Get Started Free →</a></button>
+            <button className="ec-cta"> <Link href="/Admission"> Get Started Free →</Link></button>
           </div>
 
           {/* RIGHT VISUAL */}

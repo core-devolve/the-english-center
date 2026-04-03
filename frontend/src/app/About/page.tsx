@@ -17,7 +17,7 @@ export default function AboutUs() {
           min-height: 100vh;
           --navy: #0d1b3e;
           --navy2: #112050;
-          --gold: #c9a84c;
+          --gold: #7c3aed;;
           --gold-light: #e8c97a;
           --cream: #faf8f3;
           --cream-2: #f2ede3;
