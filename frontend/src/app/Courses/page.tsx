@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 // ── Types (match mongoose model) ──────────────────────────────────────────────
 interface Course {
@@ -25,35 +26,37 @@ interface Course {
 
 // ── Color maps ────────────────────────────────────────────────────────────────
 const categoryColors: Record<Course["category"], { bg: string; text: string }> = {
-  "Spoken English":          { bg: "#ede9fe", text: "#5b21b6" },
-  "IELTS / PTE / TOEFL":    { bg: "#d1fae5", text: "#065f46" },
-  "Grammar & Writing":       { bg: "#dbeafe", text: "#1d4ed8" },
-  "Business English":        { bg: "#fef3c7", text: "#b45309" },
+  "Spoken English": { bg: "#ede9fe", text: "#5b21b6" },
+  "IELTS / PTE / TOEFL": { bg: "#d1fae5", text: "#065f46" },
+  "Grammar & Writing": { bg: "#dbeafe", text: "#1d4ed8" },
+  "Business English": { bg: "#fef3c7", text: "#b45309" },
   "Personality Development": { bg: "#fce7f3", text: "#9d174d" },
 };
 const levelColors: Record<string, { bg: string; text: string }> = {
-  Beginner:     { bg: "#dcfce7", text: "#166534" },
+  Beginner: { bg: "#dcfce7", text: "#166534" },
   Intermediate: { bg: "#fef9c3", text: "#854d0e" },
-  Advanced:     { bg: "#fee2e2", text: "#991b1b" },
+  Advanced: { bg: "#fee2e2", text: "#991b1b" },
   "All Levels": { bg: "#f1f5f9", text: "#475569" },
 };
 const tagColors: Record<string, { bg: string; color: string }> = {
-  "Most Popular":  { bg: "#fbbf24", color: "#1a2340" },
-  "Bestseller":    { bg: "#4f46e5", color: "#ffffff" },
-  "Top Rated":     { bg: "#10b981", color: "#ffffff" },
-  "Premium":       { bg: "#f59e0b", color: "#1a2340" },
+  "Most Popular": { bg: "#fbbf24", color: "#1a2340" },
+  "Bestseller": { bg: "#4f46e5", color: "#ffffff" },
+  "Top Rated": { bg: "#10b981", color: "#ffffff" },
+  "Premium": { bg: "#f59e0b", color: "#1a2340" },
   "Most Enrolled": { bg: "#8b5cf6", color: "#ffffff" },
-  "New":           { bg: "#0ea5e9", color: "#ffffff" },
-  "Free":          { bg: "#ef4444", color: "#ffffff" },
-  "Trending":      { bg: "#ec4899", color: "#ffffff" },
+  "New": { bg: "#0ea5e9", color: "#ffffff" },
+  "Free": { bg: "#ef4444", color: "#ffffff" },
+  "Trending": { bg: "#ec4899", color: "#ffffff" },
 };
+
+
 
 // ── Star rating ───────────────────────────────────────────────────────────────
 function StarRating({ rating }: { rating: number }) {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
       <div style={{ display: "flex", gap: 1 }}>
-        {[1,2,3,4,5].map(s => (
+        {[1, 2, 3, 4, 5].map(s => (
           <span key={s} style={{ fontSize: 11, color: s <= Math.floor(rating) ? "#fbbf24" : "#d1d5db" }}>★</span>
         ))}
       </div>
@@ -85,6 +88,7 @@ function CourseCard({ course }: { course: Course }) {
   const cc = categoryColors[course.category];
   const lc = levelColors[course.level];
   const tg = course.tag ? tagColors[course.tag] : null;
+  const router = useRouter();
 
   return (
     <div
@@ -167,24 +171,14 @@ function CourseCard({ course }: { course: Course }) {
         )}
 
         {/* Footer */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: 14, borderTop: "1px solid #f1f5f9", marginTop: "auto" }}>
-          <div>
-            {course.isFree ? (
-              <span style={{ fontFamily: "'Fraunces',serif", fontSize: 22, fontWeight: 900, color: "#10b981" }}>FREE</span>
-            ) : (
-              <div style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
-                <span style={{ fontFamily: "'Fraunces',serif", fontSize: 22, fontWeight: 900, color: "#0f0c29" }}>{course.price}</span>
-                {course.originalPrice && (
-                  <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: 12, color: "#9ca3af", textDecoration: "line-through" }}>{course.originalPrice}</span>
-                )}
-              </div>
-            )}
-          </div>
+        <div style={{ paddingTop: 14, borderTop: "1px solid #f1f5f9", marginTop: "auto" }}>
           <button
+            onClick={() => router.push("/Admission")}
             style={{
+              width: "100%",
               background: `linear-gradient(135deg,${course.bgFrom},${course.bgTo})`,
-              color: "#ffffff", border: "none", padding: "10px 20px", borderRadius: 10,
-              fontFamily: "'Space Grotesk',sans-serif", fontSize: 12, fontWeight: 700,
+              color: "#ffffff", border: "none", padding: "12px 20px", borderRadius: 10,
+              fontFamily: "'Space Grotesk',sans-serif", fontSize: 13, fontWeight: 700,
               cursor: "pointer", letterSpacing: "0.2px", boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
               transition: "opacity 0.2s, transform 0.2s",
             }}
@@ -203,17 +197,17 @@ function CourseCard({ course }: { course: Course }) {
 export default function CoursesPage() {
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError]     = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     (async () => {
       try {
-        const res  = await fetch("/api/courses");
+        const res = await fetch("/api/courses");
         const json = await res.json();
         if (json.success) setCourses(json.data);
         else setError(true);
       } catch { setError(true); }
-      finally  { setLoading(false); }
+      finally { setLoading(false); }
     })();
   }, []);
 
@@ -271,7 +265,7 @@ export default function CoursesPage() {
             <h1 className="cp-hero-title">Our <span className="gold">Courses</span></h1>
             <p className="cp-hero-sub">Expert-led English courses designed to boost your fluency, confidence and career — at the most affordable price in India.</p>
             <div className="cp-hero-stats">
-              {[["12+","Courses"],["5,000+","Students"],["97%","Success Rate"],["₹999","Starting At"]].map(([n,l]) => (
+              {[["12+", "Courses"], ["5,000+", "Students"], ["97%", "Success Rate"], ["₹999", "Starting At"]].map(([n, l]) => (
                 <div key={l} style={{ textAlign: "center" }}>
                   <span className="cp-stat-num">{n}</span>
                   <span className="cp-stat-lbl">{l}</span>
@@ -287,7 +281,7 @@ export default function CoursesPage() {
         {/* Grid */}
         <div className="cp-grid">
           {loading ? (
-            [1,2,3,4,5,6].map(i => <SkeletonCard key={i} />)
+            [1, 2, 3, 4, 5, 6].map(i => <SkeletonCard key={i} />)
           ) : error ? (
             <div className="cp-empty">
               <div className="cp-empty-icon">⚠️</div>

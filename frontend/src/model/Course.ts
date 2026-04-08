@@ -10,9 +10,6 @@ export interface ICourse {
   title: string;
   tagline: string;
   desc: string;
-  price: string;
-  originalPrice: string;
-  isFree: boolean;
   level: CourseLevel;
   rating: number;
   language: string;
@@ -32,9 +29,6 @@ const CourseSchema = new Schema<ICourse>(
     title:         { type: String, required: true },
     tagline:       { type: String, required: true },
     desc:          { type: String, required: true },
-    price:         { type: String, required: true },
-    originalPrice: { type: String, required: true },
-    isFree:        { type: Boolean, default: false },
     level:         { type: String, required: true, enum: ["Beginner", "Intermediate", "Advanced"] },
     rating:        { type: Number, required: true, min: 0, max: 5 },
     language:      { type: String, required: true },

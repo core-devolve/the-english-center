@@ -22,14 +22,13 @@ export async function POST(req: NextRequest) {
 
         const {
             category, title, tagline, desc,
-            price, originalPrice, isFree,
             level, rating, language,
             certificate, icon, bgFrom, bgTo,
             tag, features,
         } = body;
 
         // Required field check
-        if (!category || !title || !tagline || !desc || !price || !originalPrice || !level || !language || !icon || !bgFrom || !bgTo) {
+        if (!category || !title || !tagline || !desc || !level || !language || !icon || !bgFrom || !bgTo) {
             return NextResponse.json({ success: false, error: "Missing required fields" }, { status: 400 });
         }
 
@@ -38,9 +37,6 @@ export async function POST(req: NextRequest) {
             title, 
             tagline, 
             desc,
-            price, 
-            originalPrice,
-            isFree: isFree ?? false,
             level, 
             rating, 
             language,

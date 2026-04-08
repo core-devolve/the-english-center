@@ -11,9 +11,6 @@ interface Course {
   title: string;
   tagline: string;
   desc: string;
-  price: string;
-  originalPrice: string;
-  isFree: boolean;
   level: Level;
   rating: number;
   language: string;
@@ -29,11 +26,11 @@ const CATEGORIES: CourseCategory[] = [
   "Spoken English", "IELTS / PTE / TOEFL", "Grammar & Writing",
   "Business English", "Personality Development",
 ];
-const LEVELS: Level[] = ["Beginner", "Intermediate", "Advanced", "All Levels"];
-const LANGUAGES       = ["Hindi + English", "English Only", "Hindi Only"];
-const TAGS            = ["", "Most Popular", "Bestseller", "Top Rated", "Premium", "Most Enrolled", "New", "Free", "Trending"];
-const EMOJIS          = ["🗣️","🎙️","🎁","🤝","🌟","🎤","📚","🏆","📜","🎓","💬","🧠","✍️","🌐","⭐","🎯"];
-const GRADIENTS       = [
+const LEVELS: Level[]  = ["Beginner", "Intermediate", "Advanced", "All Levels"];
+const LANGUAGES        = ["Hindi + English", "English Only", "Hindi Only"];
+const TAGS             = ["", "Most Popular", "Bestseller", "Top Rated", "Premium", "Most Enrolled", "New", "Free", "Trending"];
+const EMOJIS           = ["🗣️","🎙️","🎁","🤝","🌟","🎤","📚","🏆","📜","🎓","💬","🧠","✍️","🌐","⭐","🎯"];
+const GRADIENTS        = [
   { from: "#4f46e5", to: "#7c3aed" }, { from: "#0ea5e9", to: "#2563eb" },
   { from: "#be185d", to: "#f43f5e" }, { from: "#134e4a", to: "#0d9488" },
   { from: "#7c3aed", to: "#ec4899" }, { from: "#312e81", to: "#8b5cf6" },
@@ -65,22 +62,19 @@ const categoryColors: Record<CourseCategory, { bg: string; color: string }> = {
 };
 
 const emptyForm = () => ({
-  category:      "Spoken English" as CourseCategory,
-  title:         "",
-  tagline:       "",
-  desc:          "",
-  price:         "",
-  originalPrice: "",
-  isFree:        false,
-  level:         "Beginner" as Level,
-  rating:        4.8,
-  language:      "Hindi + English",
-  certificate:   true,
-  icon:          "🗣️",
-  bgFrom:        "#4f46e5",
-  bgTo:          "#7c3aed",
-  tag:           "",
-  features:      [] as string[],
+  category:    "Spoken English" as CourseCategory,
+  title:       "",
+  tagline:     "",
+  desc:        "",
+  level:       "Beginner" as Level,
+  rating:      4.8,
+  language:    "Hindi + English",
+  certificate: true,
+  icon:        "🗣️",
+  bgFrom:      "#4f46e5",
+  bgTo:        "#7c3aed",
+  tag:         "",
+  features:    [] as string[],
 });
 
 export default function AdminCourses() {
@@ -88,7 +82,7 @@ export default function AdminCourses() {
   const [loading, setLoading]             = useState(true);
   const [saving, setSaving]               = useState(false);
   const [form, setForm]                   = useState(emptyForm());
-  const [tab, setTab]                     = useState<"basic" | "details" | "pricing">("basic");
+  const [tab, setTab]                     = useState<"basic" | "details">("basic");
   const [errors, setErrors]               = useState<Record<string, string>>({});
   const [featureInput, setFeatureInput]   = useState("");
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
@@ -116,21 +110,18 @@ export default function AdminCourses() {
     if (!form.title.trim())   e.title   = "Title required";
     if (!form.tagline.trim()) e.tagline = "Tagline required";
     if (!form.desc.trim())    e.desc    = "Description required";
-    if (!form.isFree && !form.price.trim()) e.price = "Price required";
     setErrors(e);
     return Object.keys(e).length === 0;
   };
 
   const handleSubmit = async () => {
-    
-  
     if (!validate()) return;
     setSaving(true);
     try {
       const res  = await fetch("/api/courses", {
         method:  "POST",
         headers: { "Content-Type": "application/json" },
-        body:    JSON.stringify({ ...form, price: form.isFree ? "Free" : form.price, tag: form.tag || undefined }),
+        body:    JSON.stringify({ ...form, tag: form.tag || undefined }),
       });
       const json = await res.json();
       if (!json.success) throw new Error(json.error);
@@ -204,10 +195,6 @@ export default function AdminCourses() {
         .ac-card-tagline{font-size:11px;font-style:italic;color:var(--ac);opacity:0.7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
         .ac-card-meta{display:flex;gap:10px;flex-wrap:wrap;}
         .ac-card-meta-i{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--mu);}
-        .ac-card-price-row{display:flex;align-items:baseline;gap:8px;margin-top:2px;}
-        .ac-card-price{font-size:15px;font-weight:800;color:var(--tx);}
-        .ac-card-price.free{color:#34d399;}
-        .ac-card-orig{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mu);text-decoration:line-through;}
         .ac-card-actions{padding:12px 10px;display:flex;flex-direction:column;gap:5px;align-items:center;justify-content:center;}
         .ac-card-btn{width:27px;height:27px;background:var(--sf2);border:1px solid var(--bd);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:11px;cursor:pointer;color:var(--mu);transition:all 0.15s;}
         .ac-card-btn.del:hover{color:#f87171;border-color:rgba(248,113,113,0.3);}
@@ -264,8 +251,7 @@ export default function AdminCourses() {
         .ac-preview-thumb{height:100px;display:flex;align-items:center;justify-content:center;font-size:38px;position:relative;}
         .ac-preview-body{padding:12px;}
         .ac-preview-title{font-size:13px;font-weight:700;color:var(--tx);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-        .ac-preview-tagline{font-size:11px;font-style:italic;color:var(--ac);opacity:0.7;margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-        .ac-preview-price{font-size:16px;font-weight:800;}
+        .ac-preview-tagline{font-size:11px;font-style:italic;color:var(--ac);opacity:0.7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
         .ac-footer{padding:14px 20px;border-top:1px solid var(--bd);display:flex;gap:8px;}
         .ac-btn-pub{flex:1;padding:11px;background:rgba(110,231,247,0.08);border:1px solid rgba(110,231,247,0.22);border-radius:10px;cursor:pointer;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--ac);transition:all 0.15s;}
         .ac-btn-pub:hover:not(:disabled){background:rgba(110,231,247,0.14);border-color:rgba(110,231,247,0.38);}
@@ -341,10 +327,6 @@ export default function AdminCourses() {
                             <span className="ac-card-meta-i">⭐ {c.rating}</span>
                             <span className="ac-card-meta-i">📚 {c.features.length} features</span>
                           </div>
-                          <div className="ac-card-price-row">
-                            <span className={`ac-card-price${c.isFree ? " free" : ""}`}>{c.isFree ? "FREE" : c.price}</span>
-                            {!c.isFree && c.originalPrice && <span className="ac-card-orig">{c.originalPrice}</span>}
-                          </div>
                         </div>
                         <div className="ac-card-actions">
                           <button className="ac-card-btn del" onClick={() => setDeleteConfirm(c._id)} title="Delete">✕</button>
@@ -367,9 +349,9 @@ export default function AdminCourses() {
                   <div className="ac-dot" />
                 </div>
                 <div className="ac-tabs">
-                  {(["basic","details","pricing"] as const).map(t => (
+                  {(["basic", "details"] as const).map(t => (
                     <button key={t} className={`ac-tab${tab === t ? " on" : ""}`} onClick={() => setTab(t)}>
-                      {t === "basic" ? "Basic" : t === "details" ? "Details" : "Pricing"}
+                      {t === "basic" ? "Basic" : "Details"}
                     </button>
                   ))}
                 </div>
@@ -380,8 +362,8 @@ export default function AdminCourses() {
                   <div>
                     <label className="ac-lbl">card gradient</label>
                     <div className="ac-grad-row">
-                      {GRADIENTS.map((g,i) => (
-                        <div key={i} className={`ac-grad-sw${form.bgFrom===g.from?" on":""}`}
+                      {GRADIENTS.map((g, i) => (
+                        <div key={i} className={`ac-grad-sw${form.bgFrom === g.from ? " on" : ""}`}
                           style={{ background: `linear-gradient(135deg,${g.from},${g.to})` }}
                           onClick={() => setForm(f => ({ ...f, bgFrom: g.from, bgTo: g.to }))} />
                       ))}
@@ -391,7 +373,7 @@ export default function AdminCourses() {
                     <label className="ac-lbl">icon emoji</label>
                     <div className="ac-emoji-row">
                       {EMOJIS.map(e => (
-                        <button key={e} type="button" className={`ac-emo${form.icon===e?" on":""}`}
+                        <button key={e} type="button" className={`ac-emo${form.icon === e ? " on" : ""}`}
                           onClick={() => setForm(f => ({ ...f, icon: e }))}>{e}</button>
                       ))}
                     </div>
@@ -405,7 +387,7 @@ export default function AdminCourses() {
                         return (
                           <button key={t} type="button" className="ac-tag-pill"
                             style={isOn && tc ? { background: `${tc.bg}22`, borderColor: tc.bg, color: tc.bg } :
-                                   isOn ? { background: "var(--sf2)", borderColor: "var(--bd2)", color: "var(--tx)" } : {}}
+                              isOn ? { background: "var(--sf2)", borderColor: "var(--bd2)", color: "var(--tx)" } : {}}
                             onClick={() => setForm(f => ({ ...f, tag: t }))}>{t || "None"}</button>
                         );
                       })}
@@ -436,21 +418,21 @@ export default function AdminCourses() {
                   </div>
                   <div>
                     <label className="ac-lbl">title</label>
-                    <input type="text" className={`ac-inp${errors.title?" err":""}`}
+                    <input type="text" className={`ac-inp${errors.title ? " err" : ""}`}
                       placeholder="e.g. Spoken English Foundation"
                       value={form.title} onChange={e => setForm(f => ({ ...f, title: e.target.value }))} />
                     {errors.title && <div className="ac-err">⚠ {errors.title}</div>}
                   </div>
                   <div>
                     <label className="ac-lbl">tagline</label>
-                    <input type="text" className={`ac-inp${errors.tagline?" err":""}`}
+                    <input type="text" className={`ac-inp${errors.tagline ? " err" : ""}`}
                       placeholder="e.g. Start speaking with confidence"
                       value={form.tagline} onChange={e => setForm(f => ({ ...f, tagline: e.target.value }))} />
                     {errors.tagline && <div className="ac-err">⚠ {errors.tagline}</div>}
                   </div>
                   <div>
                     <label className="ac-lbl">description</label>
-                    <textarea rows={3} className={`ac-ta${errors.desc?" err":""}`}
+                    <textarea rows={3} className={`ac-ta${errors.desc ? " err" : ""}`}
                       placeholder="Short course description..."
                       value={form.desc} onChange={e => setForm(f => ({ ...f, desc: e.target.value }))} />
                     {errors.desc && <div className="ac-err">⚠ {errors.desc}</div>}
@@ -466,17 +448,37 @@ export default function AdminCourses() {
                       <div className="ac-tog-track" /><div className="ac-tog-thumb" />
                     </label>
                   </div>
+
+                  {/* Live preview in Basic tab */}
+                  <div>
+                    <label className="ac-lbl">live preview</label>
+                    <div className="ac-preview">
+                      <div className="ac-preview-thumb" style={{ background: `linear-gradient(135deg,${form.bgFrom},${form.bgTo})` }}>
+                        <span style={{ filter: "drop-shadow(0 3px 8px rgba(0,0,0,0.3))" }}>{form.icon}</span>
+                        {form.tag && tagColors[form.tag] && (
+                          <div style={{ position: "absolute", top: 7, right: 7, background: tagColors[form.tag].bg, color: tagColors[form.tag].color, fontFamily: "'JetBrains Mono',monospace", fontSize: 7, fontWeight: 700, padding: "2px 6px", borderRadius: 4, textTransform: "uppercase" }}>{form.tag}</div>
+                        )}
+                        {form.certificate && (
+                          <div style={{ position: "absolute", bottom: 7, left: 7, fontFamily: "'JetBrains Mono',monospace", fontSize: 7, background: "rgba(110,231,247,0.15)", color: "var(--ac)", border: "1px solid rgba(110,231,247,0.2)", padding: "2px 6px", borderRadius: 4 }}>🏅 Certificate</div>
+                        )}
+                      </div>
+                      <div className="ac-preview-body">
+                        <div className="ac-preview-title">{form.title || "Course Title"}</div>
+                        <div className="ac-preview-tagline">{form.tagline || "Tagline goes here"}</div>
+                      </div>
+                    </div>
+                  </div>
                 </>}
 
                 {tab === "details" && <>
                   <div>
                     <label className="ac-lbl">rating</label>
                     <div className="ac-emoji-row">
-                      {[4.0,4.5,4.6,4.7,4.8,4.9,5.0].map(r => (
+                      {[4.0, 4.5, 4.6, 4.7, 4.8, 4.9, 5.0].map(r => (
                         <button key={r} type="button" className="ac-emo"
-                          style={form.rating===r ? { background:"rgba(251,191,36,0.15)",borderColor:"rgba(251,191,36,0.4)" } : {}}
+                          style={form.rating === r ? { background: "rgba(251,191,36,0.15)", borderColor: "rgba(251,191,36,0.4)" } : {}}
                           onClick={() => setForm(f => ({ ...f, rating: r }))}>
-                          <span style={{ fontSize:11,fontFamily:"'JetBrains Mono',monospace",color:form.rating===r?"#fbbf24":"var(--mu)" }}>{r}</span>
+                          <span style={{ fontSize: 11, fontFamily: "'JetBrains Mono',monospace", color: form.rating === r ? "#fbbf24" : "var(--mu)" }}>{r}</span>
                         </button>
                       ))}
                     </div>
@@ -485,7 +487,7 @@ export default function AdminCourses() {
                     <label className="ac-lbl">features (what you'll learn)</label>
                     {form.features.length > 0 && (
                       <div className="ac-feat-list">
-                        {form.features.map((feat,i) => (
+                        {form.features.map((feat, i) => (
                           <div key={i} className="ac-feat-item">
                             <span>✓ {feat}</span>
                             <button className="ac-feat-rm" onClick={() => removeFeature(i)}>✕</button>
@@ -496,59 +498,8 @@ export default function AdminCourses() {
                     <div className="ac-feat-add">
                       <input type="text" className="ac-inp" placeholder="e.g. Daily live sessions"
                         value={featureInput} onChange={e => setFeatureInput(e.target.value)}
-                        onKeyDown={e => e.key==="Enter" && addFeature()} />
+                        onKeyDown={e => e.key === "Enter" && addFeature()} />
                       <button className="ac-feat-add-btn" onClick={addFeature}>+ Add</button>
-                    </div>
-                  </div>
-                </>}
-
-                {tab === "pricing" && <>
-                  <div className="ac-tog-row">
-                    <div>
-                      <div className="ac-tog-name">Free Course</div>
-                      <div className="ac-tog-sub">Price shows as FREE</div>
-                    </div>
-                    <label className="ac-tog">
-                      <input type="checkbox" checked={form.isFree}
-                        onChange={e => setForm(f => ({ ...f, isFree: e.target.checked }))} />
-                      <div className="ac-tog-track" /><div className="ac-tog-thumb" />
-                    </label>
-                  </div>
-                  {!form.isFree && <>
-                    <div>
-                      <label className="ac-lbl">price (e.g. ₹1,999)</label>
-                      <input type="text" className={`ac-inp${errors.price?" err":""}`} placeholder="₹1,999"
-                        value={form.price} onChange={e => setForm(f => ({ ...f, price: e.target.value }))} />
-                      {errors.price && <div className="ac-err">⚠ {errors.price}</div>}
-                    </div>
-                    <div>
-                      <label className="ac-lbl">original price — strikethrough (optional)</label>
-                      <input type="text" className="ac-inp" placeholder="₹3,500"
-                        value={form.originalPrice||""} onChange={e => setForm(f => ({ ...f, originalPrice: e.target.value }))} />
-                    </div>
-                  </>}
-                  <div>
-                    <label className="ac-lbl">live preview</label>
-                    <div className="ac-preview">
-                      <div className="ac-preview-thumb" style={{ background: `linear-gradient(135deg,${form.bgFrom},${form.bgTo})` }}>
-                        <span style={{ filter:"drop-shadow(0 3px 8px rgba(0,0,0,0.3))" }}>{form.icon}</span>
-                        {form.tag && tagColors[form.tag] && (
-                          <div style={{ position:"absolute",top:7,right:7,background:tagColors[form.tag].bg,color:tagColors[form.tag].color,fontFamily:"'JetBrains Mono',monospace",fontSize:7,fontWeight:700,padding:"2px 6px",borderRadius:4,textTransform:"uppercase" }}>{form.tag}</div>
-                        )}
-                        {form.certificate && (
-                          <div style={{ position:"absolute",bottom:7,left:7,fontFamily:"'JetBrains Mono',monospace",fontSize:7,background:"rgba(110,231,247,0.15)",color:"var(--ac)",border:"1px solid rgba(110,231,247,0.2)",padding:"2px 6px",borderRadius:4 }}>🏅 Certificate</div>
-                        )}
-                      </div>
-                      <div className="ac-preview-body">
-                        <div className="ac-preview-title">{form.title||"Course Title"}</div>
-                        <div className="ac-preview-tagline">{form.tagline||"Tagline goes here"}</div>
-                        <div className="ac-preview-price" style={{ color:form.isFree?"#34d399":"var(--tx)" }}>
-                          {form.isFree?"FREE":form.price||"₹—"}
-                          {!form.isFree&&form.originalPrice&&(
-                            <span style={{ fontFamily:"'JetBrains Mono',monospace",fontSize:10,color:"var(--mu)",textDecoration:"line-through",marginLeft:8,fontWeight:400 }}>{form.originalPrice}</span>
-                          )}
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </>}
@@ -573,7 +524,7 @@ export default function AdminCourses() {
             <div className="ac-modal-desc">This cannot be undone. The course will be permanently removed.</div>
             <div className="ac-modal-row">
               <button className="ac-btn-del" onClick={() => handleDelete(deleteConfirm)}>Delete</button>
-              <button className="ac-btn-can" style={{ flex:1 }} onClick={() => setDeleteConfirm(null)}>Cancel</button>
+              <button className="ac-btn-can" style={{ flex: 1 }} onClick={() => setDeleteConfirm(null)}>Cancel</button>
             </div>
           </div>
         </div>
