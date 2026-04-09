@@ -15,21 +15,21 @@ const scheduleOptions = [
 const levelOptions = ["Complete Beginner", "Basic", "Intermediate", "Upper Intermediate", "Advanced"];
 
 const faqs = [
-  { q: "Are classes fully online?",         a: "Yes, 100% live online via Zoom / Google Meet. Attend from anywhere in India or abroad." },
-  { q: "Will I get a certificate?",         a: "Every paid course comes with a The English Center completion certificate you can share on LinkedIn." },
-  { q: "What if I miss a class?",           a: "All sessions are recorded and uploaded within 24 hours so you never miss content." },
-  { q: "Is there an EMI option?",           a: "Yes — easy 3-month EMI for courses above ₹1,500. No interest, no hidden charges." },
-  { q: "Can I switch my batch?",            a: "One free batch switch is allowed within the first week of joining." },
+  { q: "Are classes fully online?", a: "Yes, 100% live online via Zoom / Google Meet. Attend from anywhere in India or abroad." },
+  { q: "Will I get a certificate?", a: "Every paid course comes with a The English Center completion certificate you can share on LinkedIn." },
+  { q: "What if I miss a class?", a: "All sessions are recorded and uploaded within 24 hours so you never miss content." },
+  { q: "Is there an EMI option?", a: "Yes — easy 3-month EMI for courses above ₹1,500. No interest, no hidden charges." },
+  { q: "Can I switch my batch?", a: "One free batch switch is allowed within the first week of joining." },
   { q: "How do I choose the right course?", a: "Our counsellors recommend the best course after your first call, based on your level and goals." },
 ];
 
 const benefits = [
-  { icon: "👩‍🏫", title: "Expert Instructor",  desc: "10+ years of experience with Mrs. Anjali Chatterjee." },
-  { icon: "📱",  title: "100% Online",          desc: "Attend from home, office, or anywhere — no commute." },
-  { icon: "🎓",  title: "Certified Course",     desc: "Industry-recognised certificate on completion." },
-  { icon: "⏺️", title: "Recorded Classes",     desc: "Rewatch any session anytime, forever." },
-  { icon: "💬",  title: "WhatsApp Support",     desc: "Instant doubt support via active WhatsApp community." },
-  { icon: "💳",  title: "Easy EMI",             desc: "3-month no-interest EMI for all premium courses." },
+  { icon: "👩‍🏫", title: "Expert Instructor", desc: "10+ years of experience with Mrs. Anjali Chatterjee." },
+  { icon: "📱", title: "100% Online", desc: "Attend from home, office, or anywhere — no commute." },
+  { icon: "🎓", title: "Certified Course", desc: "Industry-recognised certificate on completion." },
+  { icon: "⏺️", title: "Recorded Classes", desc: "Rewatch any session anytime, forever." },
+  { icon: "💬", title: "WhatsApp Support", desc: "Instant doubt support via active WhatsApp community." },
+  { icon: "💳", title: "Easy EMI", desc: "3-month no-interest EMI for all premium courses." },
 ];
 
 interface FormData {
@@ -40,11 +40,11 @@ interface FormData {
 const EMPTY: FormData = { name: "", phone: "", email: "", city: "", level: "", schedule: "", message: "" };
 
 export default function EnquiryPage() {
-  const [form, setForm]           = useState<FormData>(EMPTY);
-  const [loading, setLoading]     = useState(false);
+  const [form, setForm] = useState<FormData>(EMPTY);
+  const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError]         = useState<string | null>(null);
-  const [openFaq, setOpenFaq]     = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
     setForm(p => ({ ...p, [e.target.name]: e.target.value }));
@@ -58,13 +58,21 @@ export default function EnquiryPage() {
     setError(null);
     setLoading(true);
     try {
-      const res = await fetch("/api/enquiry", {
+      const res = await fetch("/api/enqury", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-      const json = await res.json();
-      if (!json.success) throw new Error(json.error || "Submission failed");
+
+      const text = await res.text();
+      let json: any;
+      try {
+        json = JSON.parse(text);
+      } catch {
+        throw new Error(`Server error (${res.status}): API route not found or returned HTML.`);
+      }
+
+      if (!res.ok || !json.success) throw new Error(json.error || "Submission failed");
       setSubmitted(true);
     } catch (err: any) {
       setError(err.message || "Something went wrong. Please try again.");
@@ -392,9 +400,9 @@ export default function EnquiryPage() {
               <div className="ap-contact-title">Need Help? Talk to Us 💬</div>
               <div className="ap-contact-sub">Our counsellors are available Mon–Sat, 9 AM – 7 PM.</div>
               {[
-                { icon: "📞", label: "Call Us",  val: "+91 98765 43210" },
+                { icon: "📞", label: "Call Us", val: "+91 98765 43210" },
                 { icon: "💬", label: "WhatsApp", val: "+91 98765 43210" },
-                { icon: "📧", label: "Email",    val: "admissions@TheEnglishCenter.in" },
+                { icon: "📧", label: "Email", val: "admissions@TheEnglishCenter.in" },
               ].map((c, i) => (
                 <div key={i} className="ap-contact-item">
                   <div className="ap-contact-icon">{c.icon}</div>
