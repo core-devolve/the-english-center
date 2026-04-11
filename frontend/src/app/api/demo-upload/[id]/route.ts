@@ -1,76 +1,52 @@
 // src/app/api/videos/[id]/route.ts
+
 import { NextRequest, NextResponse } from "next/server";
-import ImageKit from "imagekit";
-import {connectToDatabase} from "@/lib/db";
-import Video from "@/model/Video";
+import connectDB from "@/lib/db";
+import Video from "@/models/video.model";
 
-// ── ImageKit server client ────────────────────────────────────────────────────
-const imagekit = new ImageKit({
-  publicKey:   process.env.NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY!,
-  privateKey:  process.env.IMAGEKIT_PRIVATE_KEY!,
-  urlEndpoint: process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT!,
-});
+function apiError(message: string, status = 400) {
+  return NextResponse.json({ success: false, error: message }, { status });
+}
 
-// ── DELETE /api/videos/[id] ───────────────────────────────────────────────────
-export async function DELETE(
-  _req: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  try {
-    await connectToDatabase();
+async function deleteFromImageKit(fileId: string) {
+  const privateKey = process.env.IMAGEKIT_PRIVATE_KEY!;
+  const credentials = Buffer.from(`${privateKey}:`).toString("base64");
 
-    const video = await Video.findById(params.id);
-    if (!video) {
-      return NextResponse.json(
-        { success: false, error: "Video not found" },
-        { status: 404 }
-      );
-    }
+  const res = await fetch(`https://api.imagekit.io/v1/files/${fileId}`, {
+    method:  "DELETE",
+    headers: { Authorization: `Basic ${credentials}` },
+  });
 
-    // ── Delete from ImageKit first ──────────────────────────────────────────
-    // Non-fatal: log the error but still remove the DB record so the admin
-    // list stays consistent even if the ImageKit call fails.
-    try {
-      await imagekit.deleteFile(video.fileId);
-    } catch (ikErr) {
-      console.warn("[DELETE /api/videos] ImageKit delete failed:", ikErr);
-    }
-
-    // ── Delete from MongoDB ─────────────────────────────────────────────────
-    await Video.findByIdAndDelete(params.id);
-
-    return NextResponse.json({ success: true, data: { id: params.id } });
-  } catch (err: any) {
-    console.error("[DELETE /api/videos]", err);
-    return NextResponse.json(
-      { success: false, error: err.message || "Delete failed" },
-      { status: 500 }
-    );
+  if (!res.ok && res.status !== 404) {
+    const err = await res.text();
+    throw new Error(`ImageKit delete failed (${res.status}): ${err}`);
   }
 }
 
-// ── GET /api/videos/[id] ──────────────────────────────────────────────────────
-export async function GET(
+// Next.js 15: params is now a Promise — must be awaited
+export async function DELETE(
   _req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    await connectToDatabase();
+    const { id } = await params;  // ← await here
+    await connectDB();
 
-    const video = await Video.findById(params.id).lean();
-    if (!video) {
-      return NextResponse.json(
-        { success: false, error: "Video not found" },
-        { status: 404 }
-      );
+    const video = await Video.findById(id);
+    if (!video) return apiError("Video not found", 404);
+
+    try {
+      await deleteFromImageKit(video.fileId);
+    } catch (ikErr: any) {
+      console.warn("[DELETE /api/videos] ImageKit removal failed:", ikErr.message);
     }
 
-    return NextResponse.json({ success: true, data: video });
+    await video.deleteOne();
+
+    return NextResponse.json({ success: true, message: "Video deleted" });
+
   } catch (err: any) {
-    console.error("[GET /api/videos/:id]", err);
-    return NextResponse.json(
-      { success: false, error: err.message || "Fetch failed" },
-      { status: 500 }
-    );
+    console.error("[DELETE /api/videos/:id]", err);
+    return apiError(err.message || "Internal server error", 500);
   }
 }
