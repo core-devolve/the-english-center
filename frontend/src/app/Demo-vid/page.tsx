@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useEffect } from "react";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -468,8 +469,8 @@ export default function DemoVideosPage() {
               <div className="dv-cta-sub">Join a live batch with Mrs. Anjali Chatterjee and get personalised feedback, recordings, and a completion certificate.</div>
             </div>
             <div className="dv-cta-actions">
-              <button className="dv-cta-btn-primary" onClick={() => window.location.href = "/enquiry"}>Enrol Now →</button>
-              <button className="dv-cta-btn-secondary" onClick={() => window.location.href = "/enquiry"}>Send an Enquiry</button>
+              <Link className="dv-cta-btn-primary" href="/Admission">Enrol Now →</Link>
+              <Link className="dv-cta-btn-secondary" href="/Admission">Send an Enquiry</Link>
             </div>
           </div>
         )}
@@ -501,9 +502,9 @@ export default function DemoVideosPage() {
                 <div className="dv-modal-title">{playingVideo.title}</div>
                 <div className="dv-modal-meta">{playingVideo.category} · {playingVideo.level} · {playingVideo.duration}</div>
               </div>
-              <button className="dv-modal-cta" onClick={() => window.location.href = "/enquiry"}>
+              <Link className="dv-modal-cta" href="/Admission">
                 Enrol Now →
-              </button>
+              </Link>
             </div>
           </div>
         </div>

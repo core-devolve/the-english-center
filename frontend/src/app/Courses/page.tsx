@@ -170,14 +170,15 @@ function CourseCard({ course }: { course: Course }) {
           </div>
         )}
 
+
         {/* Footer */}
-        <div style={{ paddingTop: 14, borderTop: "1px solid #f1f5f9", marginTop: "auto" }}>
+        <div style={{ paddingTop: 14, borderTop: "1px solid #f1f5f9", marginTop: "auto", display: "flex", gap: 8 }}>
           <button
             onClick={() => router.push("/Admission")}
             style={{
-              width: "100%",
+              flex: 1,
               background: `linear-gradient(135deg,${course.bgFrom},${course.bgTo})`,
-              color: "#ffffff", border: "none", padding: "12px 20px", borderRadius: 10,
+              color: "#ffffff", border: "none", padding: "12px 16px", borderRadius: 10,
               fontFamily: "'Space Grotesk',sans-serif", fontSize: 13, fontWeight: 700,
               cursor: "pointer", letterSpacing: "0.2px", boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
               transition: "opacity 0.2s, transform 0.2s",
@@ -186,6 +187,21 @@ function CourseCard({ course }: { course: Course }) {
             onMouseLeave={e => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.transform = "translateY(0)"; }}
           >
             Enroll Now →
+          </button>
+          <button
+            onClick={() => router.push("/Demo-vid")}
+            style={{
+              flex: 1,
+              background: "transparent",
+              color: "#4f46e5", border: "1.5px solid #4f46e5", padding: "12px 16px", borderRadius: 10,
+              fontFamily: "'Space Grotesk',sans-serif", fontSize: 13, fontWeight: 700,
+              cursor: "pointer", letterSpacing: "0.2px",
+              transition: "background 0.2s, color 0.2s, transform 0.2s",
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background = "#4f46e5"; e.currentTarget.style.color = "#fff"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+            onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#4f46e5"; e.currentTarget.style.transform = "translateY(0)"; }}
+          >
+            View Demo ▶
           </button>
         </div>
       </div>
