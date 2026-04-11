@@ -1,8 +1,8 @@
 // src/app/api/videos/[id]/route.ts
 
 import { NextRequest, NextResponse } from "next/server";
-import connectDB from "@/lib/db";
-import Video from "@/models/video.model";
+import {connectToDatabase} from "@/lib/db";
+import Video from "@/model/Video";
 
 function apiError(message: string, status = 400) {
   return NextResponse.json({ success: false, error: message }, { status });
@@ -30,7 +30,7 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;  // ← await here
-    await connectDB();
+    await connectToDatabase();
 
     const video = await Video.findById(id);
     if (!video) return apiError("Video not found", 404);
